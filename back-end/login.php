@@ -2,7 +2,8 @@
 
  $response = array();
  $response['message'] = '';
- 
+ $response['loop'] = '';
+
  $servername = "localhost";
  $username = "root";
  $password = "Cs0129";
@@ -29,7 +30,16 @@
  	 	session_start();
  	 	$_SESSION['u_id'] = $row['user_id'];
  	 	
- 	 	//$response['message'] = isset($_SESSION['u_id']);
+ 	 	
+ 	 	$sql_plan_check = "SELECT * FROM transaction_details WHERE user_id_donor = '{$_SESSION['u_id']}' AND received_count < '2'";
+ 	 	$response['message'] = $sql_plan_check;
+ 	 	$result_plan_check = mysqli_query($connection,$sql_plan_check);
+ 	 	if(mysqli_num_rows($result_plan_check))
+ 	 		$response['loop'] = 'exists';
+ 	 	else
+ 	 		$response ['loop'] = 'not_exists'; 	 
+		
+
 
  	} else {
  		$response['message'] = 'username and email does not match'; 
