@@ -1,16 +1,22 @@
-﻿define(['plugins/router'], function (router) {
+﻿define(['plugins/router', 'knockout', 'settings'], function (router, ko, settings) {
+    var show_log_out = ko.observable(false);
     return {
         router: router,
+        showLogOut: show_log_out,
+        signOut: function() {
+            console.log('Signed Out');
+        },
         activate: function () {
-            return router.map([
-                { route: ['', 'home'],                          moduleId: 'hello/index',                title: 'Join Now',              nav: true },
-                { route: 'signup',                              moduleId: 'signup/index',               title: 'Join Now',              nav: true },
-                { route: 'login',                               moduleId: 'login/index',                title: 'Sign In',               nav: true },
-                { route: 'dashboard',                           moduleId: 'dashboard/index',            title: 'Dashboard',             nav: false},
-                { route: 'plans',                               moduleId: 'plans/index',                title: 'Plans',                 nav: false}
-            ]).buildNavigationModel()
-              .mapUnknownRoutes('hello/index', 'not-found')
-              .activate();
+            router.map( settings.getRoutes() )
+            .buildNavigationModel()
+            .mapUnknownRoutes('hello/index', 'not-found')
+            .activate();
+
+            router.on('router:navigation:complete', function(){
+                show_log_out(settings.loggedIn());
+                console.log('R C');
+            });
+            return router;
         }
     };
 });

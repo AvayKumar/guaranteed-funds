@@ -23,10 +23,9 @@
 });
 
 define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'bootstrap'], function (system, app, viewLocator) {
-    //>>excludeStart("build", true);
-    system.debug(true);
-    //>>excludeEnd("build");
 
+    system.debug(true);
+    
     app.title = 'Investors Forum';
 
     //specify which plugins to install and their configuration

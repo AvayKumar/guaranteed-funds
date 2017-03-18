@@ -4,8 +4,7 @@
 			 var postData = $(formElement).serializeArray();
 			 console.log( postData );
 
-             $.post(settings.BASE_URL + 'back-end/login.php', postData,
-                function(data, status) {
+             $.post(settings.BASE_URL + 'back-end/login.php', postData, function(data, status) {
              	if( status == 'success' ) {
                     console.log(data);
 
@@ -14,6 +13,11 @@
                         <span aria-hidden="true">&times;</span></button>\
                         <strong>Error! </strong>' + data.message +'</div>');
                     } else if(data.status == 'ok') {
+                        settings.loggedIn(true);
+                        router.deactivate();
+                        router.map( settings.getRoutes() )
+                        .mapUnknownRoutes('dashboard/index', 'not-found');
+                        router.activate();
                         router.navigate('plans');
                     }
                 }
