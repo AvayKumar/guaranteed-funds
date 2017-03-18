@@ -1,20 +1,17 @@
-﻿define(['durandal/app', 'durandal/system', 'plugins/router', 'flipdown'], function (app, system, router) {
+﻿define(['durandal/app', 'durandal/system', 'plugins/router', 'settings', 'flipdown'], function (app, system, router, settings) {
     return {
-		attached : function() {
-	       $('#timer').flipcountdown({size:"lg"});
-        },
-
-        activate: function(){
-        	$.post('http://localhost/guaranteed-funds/back-end/dashboard.php',
-                function(data, status) {
+    	activate : function() {
+            $.post(settings.BASE_URL + 'back-end/dashboard.php', function(data, status) {
              	console.log(data);
              	console.log(status);
 
              	if(data.status == "false")
              		router.navigate('login');
-            },'json');
+            },'json');    	
+        },
+		attached : function() {
+	       $('#timer').flipcountdown({size:"lg"});
         }
-
-        
     }
+    
 });

@@ -7,7 +7,8 @@
         'knockout': '../lib/knockout/knockout-3.4.0',
         'bootstrap': '../lib/bootstrap/js/bootstrap',
         'flipdown': '../lib/flip-down/jquery.flipcountdown',
-        'jquery': '../lib/jquery/jquery-1.9.1'
+        'jquery': '../lib/jquery/jquery-1.9.1',
+        'settings': './settings'
     },
     shim: {
         'bootstrap': {

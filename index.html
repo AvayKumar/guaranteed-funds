@@ -30,11 +30,16 @@
             }
         </script>
         <style type="text/css">
-            
+            body {
+                background-image: url('images/bg4.png');
+                background-repeat: repeat-x repeat-y;
+            }
+            .container {
+                background-color: #FFFFFF;
+                box-shadow: 0px 0px 5px #888888;
+            }
         </style>
     </head>
-    <body>
-        <div id="applicationHost"></div>
-        <script src="lib/require/require.js" data-main="app/main"></script>
-    </body>
+    <body id="applicationHost"></body>
+    <script src="lib/require/require.js" data-main="app/main"></script>
 </html>
