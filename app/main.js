@@ -27,7 +27,7 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'bootstrap'],
     system.debug(true);
     //>>excludeEnd("build");
 
-    app.title = 'Investors Forum';
+    app.title = 'Guaranteed Funds';
 
     //specify which plugins to install and their configuration
     app.configurePlugins({
