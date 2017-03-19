@@ -5,9 +5,9 @@ define(['knockout'], function(ko) {
     	getRoutes : function() {
     		return [
                 { route: ['', 'home'],       moduleId: 'home/index',        title: 'Home',      nav: false },
-                { route: 'signup',	         moduleId: 'signup/index',       title: 'Join Now',  nav: !this.loggedIn() },
-                { route: 'login',  			 moduleId: 'login/index',        title: 'Sign In',    nav: !this.loggedIn() },
-                { route: 'dashboard',   	 moduleId: 'dashboard/index',    title: 'Dashboard', nav: this.loggedIn() },
+                { route: 'signup',	         moduleId: 'signup/index',       title: 'Join Now',  nav: false },
+                { route: 'login',  			 moduleId: 'login/index',        title: 'Sign In',    nav: false },
+                { route: 'dashboard',   	 moduleId: 'dashboard/index',    title: 'Dashboard', nav: false },
                 { route: 'plans',            moduleId: 'plans/index',        title: 'Plans',     nav: false}
             ]
     	}

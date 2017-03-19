@@ -1,0 +1,55 @@
+body {
+    background-image: url('../images/bg4.png');
+    background-repeat: repeat-x repeat-y;
+}
+
+.container {
+    background-color: #ebebeb;
+    box-shadow: 0px 0px 5px #888888;            
+    min-height: 100%;
+}   
+#data-loader {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0,0,0, 0.5);
+  display: none;
+}
+#data-loader > span {
+  display: block;
+  border: 12px solid rgba(255, 255, 255, 0.3);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  border-radius: 50%;
+  border-top: 12px solid #3498db;
+  border-bottom: 12px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.dash-panel {
+    background: #FFF;
+}
+
+.timer-panel {
+    background: #FFF;
+}
+
+.dash-panel h3, .timer-panel h3 {
+
+}
