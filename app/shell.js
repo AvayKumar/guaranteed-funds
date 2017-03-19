@@ -1,20 +1,25 @@
 ﻿define(['plugins/router', 'knockout', 'settings'], function (router, ko, settings) {
-    var show_log_out = ko.observable(false);
+    var logged_in = ko.observable(false);
+    var not_logged_in = ko.observable(true);
+
     return {
         router: router,
-        showLogOut: show_log_out,
+        loggedIn: logged_in,
+        notLoggedIn: not_logged_in,
         signOut: function() {
-            console.log('Signed Out');
+            settings.loggedIn(false);
+            router.navigate('home');
         },
         activate: function () {
+
             router.map( settings.getRoutes() )
             .buildNavigationModel()
             .mapUnknownRoutes('hello/index', 'not-found')
             .activate();
 
             router.on('router:navigation:complete', function(){
-                show_log_out(settings.loggedIn());
-                console.log('R C');
+                logged_in(settings.loggedIn());
+                not_logged_in(!settings.loggedIn());
             });
             return router;
         }

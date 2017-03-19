@@ -29,8 +29,8 @@ else{
 */
 
  $servername = "localhost";
- $username = "phpmyadmin";
- $password = "123";
+ $username = "root";
+ $password = "Cs0129";
  $database = "guaranteed_funds";
  
  $connection = new mysqli($servername, $username, $password, $database);

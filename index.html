@@ -19,7 +19,8 @@
         <link rel="stylesheet" href="css/ie10mobile.css" />
         <link rel="stylesheet" href="lib/durandal/css/durandal.css" />
         <link rel="stylesheet" type="text/css" href="lib/flip-down/jquery.flipcountdown.css" />
-        <link rel="stylesheet" href="css/samples.css" />
+        <link rel="stylesheet" type="text/css" href="css/samples.css" />
+        <link rel="stylesheet" type="text/css" href="css/custom.css" />
         
         <script type="text/javascript">
             if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
@@ -29,17 +30,8 @@
                 document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
             }
         </script>
-        <style type="text/css">
-            body {
-                background-image: url('images/bg4.png');
-                background-repeat: repeat-x repeat-y;
-            }
-            .container {
-                background-color: #FFFFFF;
-                box-shadow: 0px 0px 5px #888888;
-            }
-        </style>
     </head>
-    <body id="applicationHost"></body>
+    <body id="applicationHost">
+    </body>
     <script src="lib/require/require.js" data-main="app/main"></script>
 </html>

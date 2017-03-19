@@ -4,8 +4,8 @@ $response = array();
 $response['status'] = '';
 $response['message'] = '';
 $response['route_to_dashboard'] = 'false';
-if(!isset($_SESSION['u_id']))
-{
+
+if(!isset($_SESSION['u_id'])) {
 		$response['status'] = 'false';
 		$response['message'] = 'session_not_set';
 		die(json_encode($response));
@@ -17,8 +17,8 @@ $response['message'] = 'session_set';
 
 
 $servername = "localhost";
-$username = "phpmyadmin";
-$password = "123";
+$username = "root";
+$password = "Cs0129";
 $database = "guaranteed_funds";
 
 $connection = new mysqli($servername, $username, $password, $database);
