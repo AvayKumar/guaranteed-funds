@@ -14,7 +14,6 @@
 
             router.on('router:navigation:complete', function(){
                 show_log_out(settings.loggedIn());
-                console.log('R C');
             });
             return router;
         }
