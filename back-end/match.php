@@ -3,6 +3,7 @@
 	require './require/connection.inc.php';
 
 	session_start();
+
 	$response['insert'] = 'check'; 
 	$num_packages = 6;
 	$package = array('10000','20000','30000','50000','100000','500000');
@@ -10,10 +11,11 @@
 	$j = 0;
 	for($i = 0; $i < $num_packages ; $i++)
 	{		
-		$query_donor = "SELECT `transaction_id`, `user_id_donor`, `user_id_receiver`, `amount`, `have_paid`, `received_count`, `time_stamp` 			
+		$query_donor = "SELECT `transaction_id`, `user_id_donor`, `user_id_receiver`, `amount`, `have_paid`, `received_count`,`time_stamp` 			
 					   FROM transaction_details WHERE `user_id_receiver` IS NULL AND `amount` = '{$package[$i]}' ";
-
+			   
 		$result_donor = mysqli_query($connection, $query_donor);
+
 
 		$query_receiver = "SELECT `transaction_id`, `user_id_donor`, `user_id_receiver`, `amount`, `have_paid`, `received_count`, `time_stamp` FROM transaction_details WHERE `have_paid` = '1' AND `received_count` < '2' AND `amount` = '{$package[$i]}'";
 
@@ -26,13 +28,15 @@
 				$match[$j]['donor_tid'] = $row1['transaction_id'];
 				$match[$j]['D'] = $row1['user_id_donor'];
 				$match[$j]['R'] = $row2['user_id_donor'];
-				$j++;
-				
+				$j++;									
+		
 		}
+
+
 	}
 	$sql_update = '';
 	$time_stamp = date('Y-m-d h:i:s');
-	
+
 	for($i= 0;$i<sizeof($match);$i++)
 	{
 
@@ -43,13 +47,13 @@
 	
 	$result_insert = mysqli_multi_query($connection,$sql_update);
 	
-	$response['insert'] = $sql_update;
-	//echo json_encode($response);
-	
 	if($result_insert)
 	 	$response['insert'] = 'inserted';	
-	 
-	 echo json_encode($response);
+	
+	//print_r();
+
+	//print_r($response); 
+	echo json_encode($response);
 
 
 

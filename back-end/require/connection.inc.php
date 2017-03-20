@@ -13,5 +13,4 @@
 	}
 	else {
 		$response['message'] = 'connected';
-		//echo(json_encode($response));
 	}
