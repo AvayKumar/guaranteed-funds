@@ -5,15 +5,15 @@
  $response['loop'] = '';
 
  $servername = "localhost";
- $username = "root";
- $password = "Cs0129";
+ $username = "phpmyadmin";
+ $password = "123";
  $database = "guaranteed_funds";
  
  $connection = new mysqli($servername, $username, $password, $database);
  
- if(mysqli_connect_error())
+ if(mysqli_connect_error()) {
  	die(json_encode('connection_error'));
- else {
+ } else {
  	$sql = "SELECT * FROM user WHERE user_email = '{$_POST['email']}'";
  	$result_email = mysqli_query($connection, $sql);
  	$row = mysqli_fetch_assoc($result_email);
