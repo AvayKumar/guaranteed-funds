@@ -1,9 +1,9 @@
 ﻿define(['durandal/app', 'knockout','durandal/system', 'plugins/router', 'settings', 'flipdown'], function (app, ko, system, router, settings) {
 
-	var payment_received = ko.observable('0');
-	var payment_made = ko.observable('0');		
-    var amount = ko.observable('0');
-    var referral_bonus = ko.observable('0');
+	var payment_received = ko.observable('');
+	var payment_made = ko.observable('');		
+    var amount = ko.observable('');
+    var referral_bonus = ko.observable('');
     return {
     	pay_received : payment_received,
     	pay_made : payment_made,
@@ -20,15 +20,23 @@
 					amount(data.amount_recv);
 					referral_bonus(data.bonus);
              	}
-             	if(data.status == "false"){
+             	
+                if(data.status == "false"){
              		router.navigate('login');
-                } else {
+                } 
+                else {
                     settings.loggedIn(true);
                 }
+
              	if(data.route_to_package == "true")
-             		router.navigate('plans');
+             		{
+                        router.navigate('plans');
+                    }
                 $('#data-loader').fadeOut();
             },'json');
+
+
+            
         },
 		attached : function() {
 	       $('#timer').flipcountdown({size:"lg"});

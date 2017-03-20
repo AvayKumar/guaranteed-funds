@@ -1,33 +1,21 @@
 <?php
 session_start();
-$response = array();
-$response['status'] = '';
-$response['message'] = '';
+
 $response['route_to_dashboard'] = 'false';
+$response['session'] = '';
 
 if(!isset($_SESSION['u_id'])) {
 		$response['status'] = 'false';
-		$response['message'] = 'session_not_set';
+		$response['session'] = 'session_not_set';
 		die(json_encode($response));
 }
 
 $response['status'] = 'true';
-$response['message'] = 'session_set';	
+$response['session'] = 'session_set';	
 
+$response['value'] = $_SESSION['u_id'];
 
-
-$servername = "localhost";
-$username = "root";
-$password = "Cs0129";
-$database = "guaranteed_funds";
-
-$connection = new mysqli($servername, $username, $password, $database);
-
-if(mysqli_connect_error())
-{
-	$response['message'] = 'connection error';	
-	die(json_encode($response));
-}
+require './require/connection.inc.php';
 
 if(isset($_POST['package']))
 {

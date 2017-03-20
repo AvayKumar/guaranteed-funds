@@ -1,40 +1,44 @@
 <?php
-	
- //include('parse_string.php'); 
- //echo json_encode($_POST[amount]);
+
+	require './require/connection.inc.php';
+
  
- $servername = "localhost";
- $username = "root";
- $password = "Cs0129";
- $database = "guaranteed_funds";
- 
- $connection = new mysqli($servername, $username, $password, $database);
- 
- if(mysqli_connect_error())
- 	die(json_encode('connection_error'));
- 
- else
- {
  	$sql_check_user = "SELECT * FROM `user`WHERE user_email = '{$_POST['email']}'";
 	$result_check_user = mysqli_query($connection,$sql_check_user);
+	
 	if(mysqli_num_rows($result_check_user))	
 		die(json_encode('error_email_exists'));
 	
+	$row_result_check_user = mysqli_fetch_assoc($result_check_user);
+	//$refer_email = $_POST['remail'];
+
+	$sql_referUpdate = "UPDATE `user` SET referral = referral + 1 WHERE `user_email` = '{$_POST['remail']}'";
+	$result_referUpdate = mysqli_query($connection,$sql_referUpdate);
+
 	$pass_hash = password_hash(trim($_POST['pwd']), PASSWORD_DEFAULT);
 
-	$sql = "INSERT INTO  `user`(`user_name`, `user_email`, `user_refemail`, `user_password`, `user_phone`) VALUES('{$_POST['name']}','{$_POST['email']}','{$_POST['remail']}','{$pass_hash}','{$_POST['telephone']}')";
-	$result_user = mysqli_query($connection,$sql);
-	
-	$u_id = "SELECT user_id FROM `user` WHERE user_email = '{$_POST['email']}'";
+	$sql_insert = "INSERT INTO  `user`(`user_name`, `user_email`, `user_refemail`, `user_password`, `user_phone`) VALUES('{$_POST['name']}			','{$_POST['email']}','{$_POST['remail']}','{$pass_hash}','{$_POST['telephone']}')";
+	$result_insert = mysqli_query($connection,$sql_insert);
+
+	$u_id = "SELECT user_id FROM `user` WHERE user_email = '{$_POST['email']}'";	
 	$result_uid = mysqli_query($connection,$u_id);
+	
 	$row = mysqli_fetch_assoc($result_uid);
 	
-	$sql2 = "INSERT INTO `bank_details`(`user_id`, `bank_detail_name`, `bank_detail_accnt_name`, `bank_detail_accnt_number`, 				`bank_detail_amount`) VALUES ('{$row['user_id']}','{$_POST['bank_name']}','{$_POST['accnt_name']}','{$_POST['accnt_number']}','{$_POST['amount']}')";		
-	$result_bank = mysqli_query($connection,$sql2);	  
+	
+	$sql_bank = "INSERT INTO `bank_details`(`user_id`, `bank_detail_name`, `bank_detail_accnt_name`, `bank_detail_accnt_number`) VALUES ('{$row['user_id']}','{$_POST['bank_name']}','{$_POST['accnt_name']}','{$_POST['accnt_number']}')";		
+	
+	
+	$result_bank = mysqli_query($connection,$sql_bank);	  
  	
- 	if($result_user && $result_bank)
-	 	echo json_encode('created');
+ 	if($result_insert && $result_bank){
+	 	$response['state'] = 'true';
+		session_start();
+		$_SESSION['u_id'] = $row['user_id'];
+	}	
 	else 
-		echo json_encode('error_insertion'); 
- } 
+		$response['state'] = 'false';
+		
+	echo json_encode($response); 
+  
  ?>
