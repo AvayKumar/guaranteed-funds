@@ -9,7 +9,7 @@
             </button>
             <a class="navbar-brand" href="#home">
                 <i class="fa fa-home"></i>
-                <span>Durandal</span>
+                <span>Guaranteed Funds</span>
             </a>
         </div>
 
@@ -24,10 +24,27 @@
                 <li data-bind="visible : loggedIn">
                     <a href="#dashboard">DASHBOARD</a>
                 </li>
-                <li class="sign-out" data-bind="click : signOut, visible : loggedIn">
-                    <a href="javascript:void(0)">SIGN OUT</a>
+                <li data-bind="visible : loggedIn">
+                    <a href="#about">ABOUT US</a>
                 </li>
-                <li class="loader" data-bind="css: { active: router.isNavigating }">
+                <li data-bind="visible : loggedIn">
+                    <a href="#faq">FAQ</a>
+                </li>
+
+                <li class="dropdown" data-bind="visible : loggedIn">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span data-bind="text:user"> USER </span><span class="caret"></span></a>
+                
+                <ul class="dropdown-menu">
+                    <li data-bind="visible : loggedIn">
+                        <a href="#profile"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> SETTINGS</a>
+                    </li>                    
+                    <li role="separator" class="divider"></li>
+                    <li class="sign-out" data-bind="click : signOut, visible : loggedIn">
+                        <a href="javascript:void(0)"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> SIGN OUT </a>
+                    </li>
+                </ul>
+                </li>
+                <li class="loader hidden-xs" data-bind="css: { active: router.isNavigating }">
                     <i class="fa fa-spinner fa-spin fa-2x"></i>
                 </li>
             </ul>
@@ -38,7 +55,7 @@
         <div class="container">
             <div data-bind="router: { transition:'entrance', cacheViews:true }"></div>
         </div>
-        <div id="data-loader">
+        <div id="data-loader" >
             <span></span>
         </div>
     </div>

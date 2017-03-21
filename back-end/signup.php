@@ -20,7 +20,7 @@
 	$sql_insert = "INSERT INTO  `user`(`user_name`, `user_email`, `user_refemail`, `user_password`, `user_phone`) VALUES('{$_POST['name']}			','{$_POST['email']}','{$_POST['remail']}','{$pass_hash}','{$_POST['telephone']}')";
 	$result_insert = mysqli_query($connection,$sql_insert);
 
-	$u_id = "SELECT user_id FROM `user` WHERE user_email = '{$_POST['email']}'";	
+	$u_id = "SELECT user_id, user_name FROM `user` WHERE user_email = '{$_POST['email']}'";	
 	$result_uid = mysqli_query($connection,$u_id);
 	
 	$row = mysqli_fetch_assoc($result_uid);
@@ -35,6 +35,8 @@
 	 	$response['state'] = 'true';
 		session_start();
 		$_SESSION['u_id'] = $row['user_id'];
+		$_SESSION['u_name'] = $row['user_name'];
+		$response['u_name'] = $_SESSION['u_name']; 
 	}	
 	else 
 		$response['state'] = 'false';

@@ -13,7 +13,7 @@ if(!isset($_SESSION['u_id'])) {
 $response['status'] = 'true';
 $response['session'] = 'session_set';	
 
-$response['value'] = $_SESSION['u_id'];
+//$response['value'] = $_SESSION['u_id'];
 
 require './require/connection.inc.php';
 

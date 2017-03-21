@@ -5,7 +5,6 @@
             $.post(settings.BASE_URL + 'back-end/plans.php', function(data, status) {
              	if( status == 'success' ) {
                     console.log(data);
-					
                     if(data.status == 'false')
                         router.navigate('login');
                 }
@@ -13,14 +12,13 @@
 
     	},
 
-    	selectPackage : function(amount) {
-			
+    	selectPackage : function(amount) {			
             $.post(settings.BASE_URL + 'back-end/plans.php', {'package' : amount} ,function(data, status) {
              	if( status == 'success' ) {
                     console.log(data);
                 }
-                if(data.route_to_dashboard == 'true')
-                    router.navigate('dashboard');
+                // if(data.route_to_dashboard == 'true')
+                //     router.navigate('dashboard');
             },'json');
 
     	}

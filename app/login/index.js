@@ -17,6 +17,7 @@
                     } else if(data.status == 'true') {
                         
                         settings.loggedIn(true);
+                        settings.user_name(data.u_name);
                         router.mapUnknownRoutes('dashboard/index', 'not-found');
 
                         if(data.loop == 'exists')
