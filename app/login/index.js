@@ -6,6 +6,7 @@
 
              $.post(settings.BASE_URL + 'back-end/login.php', postData, function(data, status) {
              	if( status == 'success' ) {
+
                     console.log(data);
 
                     if(data.status == 'false') {
@@ -16,12 +17,7 @@
                     } else if(data.status == 'true') {
                         
                         settings.loggedIn(true);
-                        router.deactivate();
-                        
-                        router.map( settings.getRoutes() )
-                        .mapUnknownRoutes('dashboard/index', 'not-found');
-                        
-                        router.activate();
+                        router.mapUnknownRoutes('dashboard/index', 'not-found');
 
                         if(data.loop == 'exists')
                             router.navigate('dashboard');

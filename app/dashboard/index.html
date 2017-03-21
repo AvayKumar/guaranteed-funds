@@ -33,12 +33,73 @@
 	            </div>
 	        </div>
     	</div>
-    	<div class="col-xs-12">
-			<div class="panel panel-default timer-panel">
+	</div>
+	<h3 class="page-header receivers">Receivers</h3>
+	<div id="receivers" class="row receivers">
+    	<!-- <div class="col-xs-12 col-sm-6 col-md-4">
+			<div class="panel panel-primary timer-panel">
+				<div class="panel-heading"> <h3 class="panel-title">Package : 10000</h3> </div>
 	            <div class="panel-body text-center">
-	             	<h2 id="timer"></h2>
+	            	<table class="table table-bordered table-striped">
+		              <tbody>
+		                <tr>
+		                  <td><strong>1,001</strong></td>
+		                  <td>Lorem</td>
+		                </tr>
+		                <tr>
+		                  <td><strong>1,002</strong></td>
+		                  <td>amet</td>
+		                </tr>
+		                <tr>
+		                  <td><strong>1,002</strong></td>
+		                  <td>amet</td>
+		                </tr>
+		              </tbody>
+		            </table>
+		            <h4><span class="label label-warning">Pay Before</span></h4>
+	            	<div id="timer" style="margin-bottom: 10px;"></div>
+	             	<div class="panel-footer" style="background-color: #FFFFFF">
+	             		<button class="btn btn-primary btn-block" href="#" role="button">Upload <span class="glyphicon glyphicon-upload" aria-hidden="true"></span></button>
+	             	</div>
 	            </div>
 	        </div>
-    	</div>
+    	</div> -->
 	</div>
+	<h3 class="page-header donors">Matched Donors</h3>
+	<div id="donors" class="row donors">
+	</div>
+
+	<!-- Modal -->
+	<div id="fileUpload" class="modal fade" role="dialog">
+	  <div class="modal-dialog modal-sm">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Upload Document</h4>
+	      </div>
+	      <div class="modal-body">
+	      	<div class="alert alert-info" style="display: none;" role="alert">
+			  <strong>File </strong> must be less than 512kb.
+			</div>
+			<form class="form-horizontal" action="./back-end/upload.php" method="post" enctype="multipart/form-data">
+			  <div class="form-group">
+			    <label class="control-label col-sm-2" for="email">File:</label>
+			    <div class="col-sm-10">
+			      <input id="pay_doc" type="file" name="fileToUpload" accept="image/*" class="form-control" required>
+			    </div>
+			  </div>
+			  	<input id="modalSubmit" type="submit" style="display: none;">
+			</form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+	        <button type="button" data-bind="enable: canSubmit" class="btn btn-primary" onclick="document.getElementById('modalSubmit').click()">Submit</button>
+	      </div>
+	    </div>
+
+	  </div>
+	</div>
+
 </section>

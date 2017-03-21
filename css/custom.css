@@ -53,3 +53,7 @@ body {
 .dash-panel h3, .timer-panel h3 {
 
 }
+
+.receivers, .donors {
+  display: none;
+}
