@@ -16,6 +16,7 @@
                     } else if(data.status == 'true') {
                         
                         settings.loggedIn(true);
+                        settings.user_name(data.u_name);
                         router.deactivate();
                         
                         router.map( settings.getRoutes() )

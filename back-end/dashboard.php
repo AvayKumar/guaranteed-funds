@@ -23,7 +23,8 @@
 
 $response['status'] = 'true';
 $response['session'] = 'session_set';	
- $response['id'] = $_SESSION['u_id'];
+//$response['u_name'] = $_SESSION['u_name'];
+ //$response['id'] = $_SESSION['u_id'];
 require './require/connection.inc.php';
 	
 

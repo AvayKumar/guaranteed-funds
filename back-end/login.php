@@ -21,7 +21,9 @@ if(password_verify(trim($_POST['pwd']), $row['user_password']) ) {
  	
  	session_start();
  	$_SESSION['u_id'] = $row['user_id'];
- 	
+ 	$_SESSION['u_name'] = $row['user_name'];
+ 	$response['u_name'] = $_SESSION['u_name'];
+
  	$sql_plan_check = "SELECT * FROM transaction_details WHERE user_id_donor = '{$_SESSION['u_id']}' AND received_count < '2'";
  	$result_plan_check = mysqli_query($connection,$sql_plan_check);
  	
