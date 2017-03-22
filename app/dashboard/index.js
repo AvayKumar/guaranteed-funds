@@ -121,6 +121,23 @@
                         }
                         $('.donors').fadeIn();
                     }
+
+                    if( (data.wait).length > 0 ) {
+
+                        for(var i=0; i<(data.wait).length; i++) {
+                            $('#waiting')
+                                .append('<div class="col-xs-12 col-sm-6 col-md-4">\
+                                            <div class="panel panel-primary timer-panel">\
+                                                <div class="panel-heading"> <h3 class="panel-title">Package : ' + data.wait[i].amount + '</h3> </div>\
+                                                <div class="panel-body text-center">\
+                                                    <div class="well well-sm"><h4 style="color: black;">Waiting to be merged <i class="fa fa-clock-o fa-lg" aria-hidden="trie"></i> </h4>\
+                                                    </div>\
+                                                </div>\
+                                            </div>\
+                                        </div>');
+                        }
+                        $('.waiting').fadeIn();
+                    }    
                     
                     $('#data-loader').fadeOut();
                     $('button.upload').click(function(){

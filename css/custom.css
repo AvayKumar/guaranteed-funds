@@ -42,6 +42,14 @@ body {
   100% { transform: rotate(360deg); }
 }
 
+.package h4, .package h3 {
+  color: #373D3F;
+  margin-top: 10px;
+} 
+.package p {
+  margin: 0;
+}
+
 .dash-panel {
     background: #FFF;
 }
@@ -54,6 +62,6 @@ body {
 
 }
 
-.receivers, .donors {
+.receivers, .donors, .waiting {
   display: none;
 }

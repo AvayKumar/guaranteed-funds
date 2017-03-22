@@ -17,8 +17,12 @@
              	if( status == 'success' ) {
                     console.log(data);
                 }
-                // if(data.route_to_dashboard == 'true')
-                //     router.navigate('dashboard');
+                if(data.route_to_dashboard == 'true')
+                     router.navigate('dashboard');
+                 else {
+                        $('#plan_message')
+                            .empty().text(data.message).slideDown();
+                 }
             },'json');
 
     	}

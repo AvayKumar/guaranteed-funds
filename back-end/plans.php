@@ -23,7 +23,7 @@ if(isset($_POST['package']))
 	$result_package_status = mysqli_query($connection,$sql_package_status);
 
 	if(mysqli_num_rows($result_package_status))
-		$response['message'] = "choose_another_package";//$_POST['package'];//'package_empty';
+		$response['message'] = 'You can\'t choose '.$_POST['package'].' package right now. For more infor see our FAQs';
 	else{
 		$response['route_to_dashboard'] = 'true';
 		$time_stamp = date('Y-m-d h:i:s');
