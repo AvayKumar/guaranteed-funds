@@ -66,7 +66,7 @@
 		$response['bonus'] = ($REFERRAL_WEIGHT)*($row_referral['referral']);
 
 		/**
-		 * Geat time left to pay amount
+		 * Geat time left to pay amount, and user details of receiver
 		 */
 
 		$sql_timer = "SELECT a.time_stamp, a.amount, u.user_name, u.user_email, u.user_phone FROM `transaction_details` a JOIN `user` u ON a.user_id_receiver = u.user_id WHERE a.user_id_donor = '{$_SESSION['u_id']}' AND a.have_paid = '0' AND a.user_id_receiver IS NOT NULL";
@@ -88,8 +88,13 @@
 			$response['don'][$i++]['phone'] = $row['user_phone'];
 		}
 
+
+		/**
+		 * Get details of all the matched user for current user
+		 */
 		$sql_receiver = "SELECT `amount`, `user_name`, `user_email`, `user_phone`, `file_name`, `transaction_id` FROM `user` u JOIN `transaction_details`a ON a.user_id_donor = u.user_id WHERE a.have_paid = '0' AND `user_id_receiver` = '{$_SESSION['u_id']}'";
 
+		
 		$response['rec'] = array();
 		$result_receiver = mysqli_query($connection, $sql_receiver);
 		$i = 0;
@@ -100,6 +105,20 @@
 			$response['rec'][$i]['phone'] = $row['user_phone'];
 			$response['rec'][$i]['tid'] = $row['transaction_id'];
 			$response['rec'][$i++]['fileName'] = $row['file_name'] ? true: false;
+		}
+
+		/**
+		 * Get number of waiting to be mergerd packages
+		 */
+
+		$sql_waiting = "SELECT `amount` FROM `transaction_details` WHERE `user_id_donor` = '{$_SESSION['u_id']}' AND `have_paid` = '0' AND `user_id_receiver` IS NULL";
+
+		$response['wait'] = array();
+		$result_waiting = mysqli_query($connection, $sql_waiting);
+
+		$i = 0;
+		while($row = mysqli_fetch_assoc($result_waiting)) {
+			$response['wait'][$i++]['amount'] = $row['amount'];
 		}
 
 	}
