@@ -22,7 +22,6 @@
                 if( status == 'success' && data.success ) { 
                     if( data.auth ) {  
                         settings.loggedIn(true);
-
                     } else {
                         router.navigate('login');
                     }
@@ -82,9 +81,25 @@
                                                 </div>\
                                             </div>\
                                         </div>'));
+                                var now = new Date();
+                                console.log(now.toString());
+                                now.setSeconds(now.getSeconds() + parseInt(data.don[i].time_left.s) );
+                                now.setMinutes(now.getMinutes() + parseInt(data.don[i].time_left.m) );
+                                now.setHours(now.getHours() + parseInt(data.don[i].time_left.h) );
+                                now.setDate(now.getDate() + parseInt(data.don[i].time_left.d));
+                                
+                                console.log(now.toString());
+
+                                var month = now.getMonth() < 10 ?'0' + (now.getMonth()+1): (now.getMonth()+1);
+                                var date = now.getDate() < 10 ?'0' + now.getDate() : now.getDate();
+                                var hrs = now.getHours() < 10 ?'0' + now.getHours() : now.getHours();
+                                var mins = now.getMinutes() < 10 ?'0' + now.getMinutes() : now.getMinutes();
+                                var sec = now.getSeconds() < 10 ?'0' + now.getSeconds() : now.getSeconds();
+
+                                console.log(month + '/' + date + '/' + now.getFullYear() + ' ' + hrs + ':' + mins + ':' + sec);
                                 $('#timer' + i).flipcountdown({
                                     size:'sm',
-                                    beforeDateTime: data.don[i].time_left
+                                    beforeDateTime: month + '/' + date + '/' + now.getFullYear() + ' ' + hrs + ':' + mins + ':' + sec
                                 });
                             }
                             $('.receivers').fadeIn();

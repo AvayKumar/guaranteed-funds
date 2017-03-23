@@ -2,7 +2,6 @@
     return {
         activate: function(){
            $('#data-loader').fadeOut();
-            
         },
         login : function(formElement) {
 			 var postData = $(formElement).serializeArray();

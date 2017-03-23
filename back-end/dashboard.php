@@ -10,12 +10,15 @@
 	$response['bonus'] = '0';
 	$response['pay_received'] = '0';
 
+	$TIME_INTERVAL = 'PT48H';
+
 	if(!isset($_SESSION['u_id'])) {
 		$response['auth'] = false;
 		die(json_encode($response));
 	}
 
 	$response['auth'] = true;
+	$response['blocked'] = false;
 	//$response['id'] = $_SESSION['u_id'];
 
 	require './require/connection.inc.php';
@@ -72,18 +75,34 @@
 		$sql_timer = "SELECT a.time_stamp, a.amount, u.user_name, u.user_email, u.user_phone FROM `transaction_details` a JOIN `user` u ON a.user_id_receiver = u.user_id WHERE a.user_id_donor = '{$_SESSION['u_id']}' AND a.have_paid = '0' AND a.user_id_receiver IS NOT NULL";
 		// {$_SESSION['u_id']}
 
-		$date = date_create();
+		$now = date_create();
 
 		$response['don'] = array();
 		$result_time = mysqli_query($connection, $sql_timer);
 		$i = 0;
 		if( $result_time ) {
 			while($row = mysqli_fetch_assoc($result_time)) {
-				$date_diff = date_diff(date_create($row['time_stamp']), $date); 
-				$date_to = date_add($date, $date_diff);
+
+				$db_date = date_create($row['time_stamp']);
+				//$response['don'][$i]['time_left']['b'] = $db_date->format('Y m d H i s');
+				$db_date->add(new DateInterval($TIME_INTERVAL));
+				//$response['don'][$i]['time_left']['a'] = $db_date->format('Y m d H i s');
+				//$response['don'][$i]['time_left']['n'] = $now->format('Y m d H i s');
+
+				$diff = date_diff($db_date, $now);
+				//$response['don'][$i]['time_left']['d'] = $diff->format('%Y %m %d %h %i %s');
+
+				if($diff->format('%R') == '-') {
+					$response['don'][$i]['time_left']['h'] = $diff->format('%h');
+					$response['don'][$i]['time_left']['m'] = $diff->format('%i');
+					$response['don'][$i]['time_left']['s'] = $diff->format('%s');
+					$response['don'][$i]['time_left']['d'] = $diff->format('%d');
+				} else {
+					$response['blocked'] = true;
+				}
+				//$date_to = date_add($date, $date_diff);
 
 				$response['don'][$i]['amount'] = $row['amount'];
-				$response['don'][$i]['time_left'] = $date_to->format('m/d/Y h:i:s');
 				$response['don'][$i]['name'] = $row['user_name'];
 				$response['don'][$i]['email'] = $row['user_email'];
 				$response['don'][$i++]['phone'] = $row['user_phone'];
