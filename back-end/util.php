@@ -7,7 +7,8 @@
 		$response['success'] = false;
 		$response['auth'] = isAuthenticated();
 		$response['success'] = true;
-		$response['user_name'] = $_SESSION['u_name'];
+		if(isset($_SESSION['u_id']))
+			$response['user_name'] = $_SESSION['u_name'];
 		// if($response['success']){
 			
 		// 	require './require/connection.inc.php';
@@ -33,6 +34,21 @@
 		echo json_encode($response);
 	}
 
+    function confirmPayment(){
+    	session_start();
+    	$response = array();
+    	if(isset($_SESSION['u_id'])){
+    		require './require/connection.inc.php';
+    		$sql_confirmPay = "UPDATE `transaction_details` SET `have_paid` = '1' WHERE transaction_id = '{$_POST['tid']}'";
+    		$result_confirmPay = mysqli_query($connection, $sql_confirmPay);
+    		$response['success'] = true;
+    	} 
+    	else 
+    		$response['error'] = 'Not authenticated';
+    	echo json_encode($response);
+
+    }
+
 	if( isset($_GET['func_name']) ) {
 		call_user_func($_GET['func_name']);	
 	} else {
@@ -40,3 +56,4 @@
 		$response['success'] = false;
 		echo json_encode($response);
 	}
+

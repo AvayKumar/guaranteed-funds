@@ -1,5 +1,9 @@
 ﻿define(['durandal/app', 'durandal/system', 'plugins/router', 'knockout', 'settings'], function (app, system, router, ko, settings) {
     return {
+        activate: function(){
+           $('#data-loader').fadeOut();
+            
+        },
         login : function(formElement) {
 			 var postData = $(formElement).serializeArray();
 			 console.log( postData );

@@ -1,7 +1,8 @@
 <?php
 	
 	$target_dir = 'uploads/';
-	$target_file = $target_dir . time() . '_' .basename($_FILES['fileToUpload']['name']);
+	$file_name = time() . '_' .basename($_FILES['fileToUpload']['name']);
+	$target_file = $target_dir . $file_name;
 	$file_size = $_FILES['fileToUpload']['size'];
 	$file_tmp = $_FILES['fileToUpload']['tmp_name'];
 
@@ -13,6 +14,12 @@
 		    $check = getimagesize($_FILES['fileToUpload']['tmp_name']);
 		    if($check !== false) {
 	        	move_uploaded_file($file_tmp, $target_file);
+	        	require './require/connection.inc.php';
+	        	if($connection){
+	        		$sql_fileUpdate = "UPDATE `transaction_details` SET `file_name` = '{$file_name}' WHERE `user_id_donor` = '{$_SESSION['u_id']}' AND `amount` = '{$_POST['package']}' AND `have_paid` ='0'";
+	        		$result_fileUpdate = mysqli_query($connection, $sql_fileUpdate);
+	        	}
+	        	
 	        	header('Location: http://'. $_SERVER['SERVER_NAME'] .'/guaranteed-funds/#dashboard');
 		    }
 		}		

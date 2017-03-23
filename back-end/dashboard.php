@@ -69,7 +69,7 @@
 		 * Geat time left to pay amount
 		 */
 
-		$sql_timer = "SELECT a.time_stamp, a.amount, u.user_name, u.user_email, u.user_phone FROM `transaction_details` a JOIN `user` u ON a.user_id_receiver = u.user_id WHERE a.user_id_donor = '30' AND a.have_paid = '0' AND a.user_id_receiver IS NOT NULL";
+		$sql_timer = "SELECT a.time_stamp, a.amount, u.user_name, u.user_email, u.user_phone FROM `transaction_details` a JOIN `user` u ON a.user_id_receiver = u.user_id WHERE a.user_id_donor = '{$_SESSION['u_id']}' AND a.have_paid = '0' AND a.user_id_receiver IS NOT NULL";
 		// {$_SESSION['u_id']}
 
 		$date = date_create();
@@ -88,7 +88,7 @@
 			$response['don'][$i++]['phone'] = $row['user_phone'];
 		}
 
-		$sql_receiver = "SELECT `amount`, `user_name`, `user_email`, `user_phone` FROM `user` u JOIN `transaction_details`a ON a.user_id_donor = u.user_id WHERE a.have_paid = '0' AND `user_id_receiver` = '32'";
+		$sql_receiver = "SELECT `amount`, `user_name`, `user_email`, `user_phone`, `file_name`, `transaction_id` FROM `user` u JOIN `transaction_details`a ON a.user_id_donor = u.user_id WHERE a.have_paid = '0' AND `user_id_receiver` = '{$_SESSION['u_id']}'";
 
 		$response['rec'] = array();
 		$result_receiver = mysqli_query($connection, $sql_receiver);
@@ -97,7 +97,9 @@
 			$response['rec'][$i]['amount'] = $row['amount'];
 			$response['rec'][$i]['name'] = $row['user_name'];
 			$response['rec'][$i]['email'] = $row['user_email'];
-			$response['rec'][$i++]['phone'] = $row['user_phone'];
+			$response['rec'][$i]['phone'] = $row['user_phone'];
+			$response['rec'][$i]['tid'] = $row['transaction_id'];
+			$response['rec'][$i++]['fileName'] = $row['file_name'] ? true: false;
 		}
 
 	}

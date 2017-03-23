@@ -17,7 +17,7 @@
 
 	$pass_hash = password_hash(trim($_POST['pwd']), PASSWORD_DEFAULT);
 
-	$sql_insert = "INSERT INTO  `user`(`user_name`, `user_email`, `user_refemail`, `user_password`, `user_phone`) VALUES('{$_POST['name']}			','{$_POST['email']}','{$_POST['remail']}','{$pass_hash}','{$_POST['telephone']}')";
+	$sql_insert = "INSERT INTO  `user`(`user_name`, `user_email`, `user_refemail`, `user_password`, `user_phone`) VALUES('{$_POST['name']}','{$_POST['email']}','{$_POST['remail']}','{$pass_hash}','{$_POST['telephone']}')";
 	$result_insert = mysqli_query($connection,$sql_insert);
 
 	$u_id = "SELECT user_id, user_name FROM `user` WHERE user_email = '{$_POST['email']}'";	
