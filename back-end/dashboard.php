@@ -77,15 +77,17 @@
 		$response['don'] = array();
 		$result_time = mysqli_query($connection, $sql_timer);
 		$i = 0;
-		while($row = mysqli_fetch_assoc($result_time)) {
-			$date_diff = date_diff(date_create($row['time_stamp']), $date); 
-			$date_to = date_add($date, $date_diff);
+		if( $result_time ) {
+			while($row = mysqli_fetch_assoc($result_time)) {
+				$date_diff = date_diff(date_create($row['time_stamp']), $date); 
+				$date_to = date_add($date, $date_diff);
 
-			$response['don'][$i]['amount'] = $row['amount'];
-			$response['don'][$i]['time_left'] = $date_to->format('m/d/Y h:i:s');
-			$response['don'][$i]['name'] = $row['user_name'];
-			$response['don'][$i]['email'] = $row['user_email'];
-			$response['don'][$i++]['phone'] = $row['user_phone'];
+				$response['don'][$i]['amount'] = $row['amount'];
+				$response['don'][$i]['time_left'] = $date_to->format('m/d/Y h:i:s');
+				$response['don'][$i]['name'] = $row['user_name'];
+				$response['don'][$i]['email'] = $row['user_email'];
+				$response['don'][$i++]['phone'] = $row['user_phone'];
+			}
 		}
 
 
@@ -98,13 +100,15 @@
 		$response['rec'] = array();
 		$result_receiver = mysqli_query($connection, $sql_receiver);
 		$i = 0;
-		while($row = mysqli_fetch_assoc($result_receiver)) {
-			$response['rec'][$i]['amount'] = $row['amount'];
-			$response['rec'][$i]['name'] = $row['user_name'];
-			$response['rec'][$i]['email'] = $row['user_email'];
-			$response['rec'][$i]['phone'] = $row['user_phone'];
-			$response['rec'][$i]['tid'] = $row['transaction_id'];
-			$response['rec'][$i++]['fileName'] = $row['file_name'] ? true: false;
+		if( $result_receiver ) {
+			while($row = mysqli_fetch_assoc($result_receiver)) {
+				$response['rec'][$i]['amount'] = $row['amount'];
+				$response['rec'][$i]['name'] = $row['user_name'];
+				$response['rec'][$i]['email'] = $row['user_email'];
+				$response['rec'][$i]['phone'] = $row['user_phone'];
+				$response['rec'][$i]['tid'] = $row['transaction_id'];
+				$response['rec'][$i++]['fileName'] = $row['file_name'] ? true: false;
+			}
 		}
 
 		/**
@@ -117,8 +121,10 @@
 		$result_waiting = mysqli_query($connection, $sql_waiting);
 
 		$i = 0;
-		while($row = mysqli_fetch_assoc($result_waiting)) {
-			$response['wait'][$i++]['amount'] = $row['amount'];
+		if($result_waiting) {
+			while($row = mysqli_fetch_assoc($result_waiting)) {
+				$response['wait'][$i++]['amount'] = $row['amount'];
+			}
 		}
 
 	}

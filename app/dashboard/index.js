@@ -162,8 +162,6 @@
 
                     }
 
-                }
-
                 },'json');
 
                 $('#pay_doc').on('change', function (e) {
