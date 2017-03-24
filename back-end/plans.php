@@ -26,7 +26,7 @@ if(isset($_POST['package']))
 		$response['message'] = 'You can\'t choose '.$_POST['package'].' package right now. For more infor see our FAQs';
 	else{
 		$response['route_to_dashboard'] = 'true';
-		$time_stamp = date('Y-m-d h:i:s');
+		$time_stamp = date('Y-m-d H:i:s');
 		$sql_insert_donation = "INSERT INTO transaction_details (`user_id_donor`, `amount`, `time_stamp`) VALUES ('{$_SESSION['u_id']}','{$_POST['package']}' , '{$time_stamp}')";
 		$result_insert_donation = mysqli_query($connection,$sql_insert_donation);		
 	}

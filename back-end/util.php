@@ -41,6 +41,10 @@
     		require './require/connection.inc.php';
     		$sql_confirmPay = "UPDATE `transaction_details` SET `have_paid` = '1' WHERE transaction_id = '{$_POST['tid']}'";
     		$result_confirmPay = mysqli_query($connection, $sql_confirmPay);
+    		
+    		$sql_updateReceive = "UPDATE `transaction_details` SET `received_count` = `received_count` + 1 WHERE amount = '{$_POST['amount']}' AND user_id_donor = '{$_SESSION['u_id']}' AND have_paid < 2";
+    		$result_updateReceive = mysqli_query($connection, $sql_updateReceive);
+    		
     		$response['success'] = true;
     	} 
     	else 

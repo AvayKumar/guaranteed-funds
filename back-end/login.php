@@ -34,7 +34,7 @@ if(password_verify(trim($_POST['pwd']), $row['user_password']) ) {
 
 } 
 else {
-	$response['user_verify'] = 'username and email does not match'; 
+	$response['user_verify'] = 'username and password does not match'; 
 	$response['status'] = 'false';
 }
 

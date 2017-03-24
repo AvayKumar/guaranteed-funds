@@ -108,7 +108,7 @@
                         if( (data.rec).length > 0 ) {
                             for(var i=0; i<(data.rec).length; i++) {
                             var fileStatus = data.rec[i].fileName ? '':' disabled';  
-                            var buttonMessage =  data.rec[i].fileName ? 'Confirmed Payment':'Waiting for payment';    
+                            var buttonMessage =  data.rec[i].fileName ? 'Confirme Payment':'Waiting for payment';    
                                 $('#donors')
                             .append($('<div class="col-xs-12 col-sm-6 col-md-4">\
                                             <div class="panel panel-primary timer-panel">\
@@ -132,7 +132,7 @@
                                                     </table>\
                                                     <div id="timer' + i + '" style="margin-bottom: 10px;"></div>\
                                                     <div class="panel-footer" style="background-color: #FFFFFF">\
-                                                        <button data-tid="' + data.rec[i].tid + '" class="cnfrm btn btn-primary btn-block'+ fileStatus + '" href="#" role="button">'+ buttonMessage +'</button>\
+                                                        <button data-tid="' + data.rec[i].tid + '" data-amount="' + data.rec[i].amount + '" class="cnfrm btn btn-primary btn-block'+ fileStatus + '" href="#" role="button">'+ buttonMessage +'</button>\
                                                     </div>\
                                                 </div>\
                                             </div>\
@@ -156,7 +156,7 @@
                                             </div>');
                             }
                             $('.waiting').fadeIn();
-                        }    
+                        }
                         
                         $('#data-loader').fadeOut();
                         $('button.upload').click(function(){
@@ -167,12 +167,19 @@
                         });
 
                         $('button.cnfrm').click(function(){
+                            var _this = this;
                             console.log();
-                            $.post(settings.BASE_URL + 'back-end/util.php?func_name=confirmPayment', {'tid':$(this).attr('data-tid')}, 
-                                function(data, status) {
-                                    if(status == 'success')
+                            if(!$(this).hasClass('disabled')) {
+                                $.post(settings.BASE_URL + 'back-end/util.php?func_name=confirmPayment', {'tid':$(this).attr('data-tid'), 'amount':$(this).attr('data-amount')}, 
+                                    function(data, status) {
                                         console.log(data);
-                            });
+                                        if(status == 'success' && data.success){
+                                            console.log('Exe');
+                                            $(_this).addClass('disabled btn-success')
+                                                   .removeClass('btn-primary').text('Confirmed').unbind();
+                                        }
+                                }, 'json');
+                            }
                         });
 
                     }
