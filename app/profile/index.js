@@ -20,7 +20,7 @@ define(['durandal/app', 'durandal/system', 'plugins/router','knockout', 'setting
         email : email2,
         bank_name : bank_name2,
         activate : function(){
-            console.log('?');
+            //console.log('?');
             $.post(settings.BASE_URL + 'back-end/util.php?func_name=authStatus2', 
                 function(data, status) {
 
@@ -81,28 +81,35 @@ define(['durandal/app', 'durandal/system', 'plugins/router','knockout', 'setting
         {
             var postData = $(formElement).serializeArray();          
              //console.log( postData );  
+             if(postData[2].value.length != 11)
+                {
+                  $('#sectionA #message').empty().html('<div class="alert alert-danger alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\
+                    <span aria-hidden="true">&times;</span></button>\
+                    <strong>Error! </strong>' + 'Contact must be 11 digits' +'</div>');
+                      
+                }
+             else{
+                 $.post(settings.BASE_URL + 'back-end/util.php?func_name=editProfile', postData,
+                    function(data, status) {
 
-             $.post(settings.BASE_URL + 'back-end/util.php?func_name=editProfile', postData,
-                function(data, status) {
+                    console.log(data);
 
-                console.log(data);
-
-                if( status == 'success') {
-                    if(data.state == true){ 
-                        $('#sectionA #message').empty().html('<div class="alert alert-success alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\
-                        <span aria-hidden="true">&times;</span></button>\
-                        <strong>Cool! </strong>' + data.log  +'</div>');
+                    if( status == 'success') {
+                        if(data.state == true){ 
+                            $('#sectionA #message').empty().html('<div class="alert alert-success alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\
+                            <span aria-hidden="true">&times;</span></button>\
+                            <strong>Cool! </strong>' + data.log  +'</div>');
+                            }
+                        else{
+                            $('#sectionA #message').empty().html('<div class="alert alert-danger alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\
+                            <span aria-hidden="true">&times;</span></button>\
+                            <strong>Cool! </strong>' + data.log  +'</div>');
+                            }
                         }
-                    else{
-                        $('#sectionA #message').empty().html('<div class="alert alert-danger alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\
-                        <span aria-hidden="true">&times;</span></button>\
-                        <strong>Cool! </strong>' + data.log  +'</div>');
-                        }
-                    }
-                
+                    
 
-            },'json');
-             
+                 },'json');
+                }
             // console.log(1);
         }
     };

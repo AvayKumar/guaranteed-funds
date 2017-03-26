@@ -2,12 +2,12 @@
 
 	session_start();	
 
-	
  	$response = array();
 	$response['pay_made'] = '0';
 	$response['amount_recv'] = '0';
 	$response['bonus'] = '0';
 	$response['pay_received'] = '0';
+	
 
 	$TIME_INTERVAL = 'PT48H';
 

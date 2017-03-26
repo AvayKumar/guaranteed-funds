@@ -14,9 +14,9 @@
                 error = ('Passwords do not match');
                 return false;
             }
-        if(postData[5].value.length != 10 )    
+        if(postData[5].value.length != 11 )    
             {
-                error = ('Contact number must be of 10 digits');
+                error = ('Contact number must be of 11 digits');
                 return false;
             }
         return true;    

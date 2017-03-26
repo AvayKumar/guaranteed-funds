@@ -5,7 +5,7 @@ require './require/connection.inc.php';
 $_POST['email'] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 $_POST['pwd']  	= filter_var($_POST['pwd']);
 
-$sql = "SELECT `user_password`, `user_id`, `user_name`, `user_blocked`  FROM user WHERE user_email = '{$_POST['email']}'";
+$sql = "SELECT `user_password`, `user_id`, `user_name`, `user_blocked` FROM user WHERE user_email = '{$_POST['email']}'";
 $result_email = mysqli_query($connection, $sql);
 
 $row = mysqli_fetch_assoc($result_email);
