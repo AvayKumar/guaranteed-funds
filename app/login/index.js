@@ -23,7 +23,7 @@
                         settings.user_name(data.u_name);
                         router.mapUnknownRoutes('dashboard/index', 'not-found');
 
-                        if(data.loop == 'exists')
+                        if(data.loop_exist)
                             router.navigate('dashboard');
                         else    
                             router.navigate('plans');
