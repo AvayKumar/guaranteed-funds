@@ -23,13 +23,14 @@
 				$response['user_name'] = $_SESSION['u_name'];
 				require 'require/connection.inc.php';
 				
-				$sql_Details = "SELECT `user_phone`, `bank_detail_accnt_name` AS account_name, `user_email`, `bank_detail_name` AS bank_name FROM `user` u JOIN `bank_details` b ON u.user_id = b.user_id WHERE u.user_id = '{$_SESSION['u_id']}'";
+				$sql_Details = "SELECT `user_phone`, `bank_detail_accnt_name` AS account_name, `user_email`, `bank_detail_name` AS bank_name, `bank_detail_accnt_number` AS account_number FROM `user` u JOIN `bank_details` b ON u.user_id = b.user_id WHERE u.user_id = '{$_SESSION['u_id']}'";
 				$result_Details = mysqli_query($connection, $sql_Details);
 				if($result_Details)
 					{
 						$row = mysqli_fetch_assoc($result_Details);
 						$response['phone'] = $row['user_phone']; 
 						$response['account_name'] = $row['account_name'];
+						$response['account_number'] = $row['account_number'];
 						$response['bank_name'] = $row['bank_name'];
 						$response['email'] = $row['user_email'];
 					}
@@ -68,7 +69,7 @@
 				 	$sqlEdit = "UPDATE `user` SET `user_name` = '{$_POST['name']}', `user_email` = '{$_POST['email']}', `user_phone` = '{$_POST['contact']}' WHERE user_id = '{$_SESSION['u_id']}' ";
 				 	$resultEdit = mysqli_query($connection, $sqlEdit);
 				 	
-				 	$sqlEdit2 = "UPDATE `bank_details` SET `bank_detail_name` = '{$_POST['bank_name']}', bank_detail_accnt_name = '{$_POST['accnt_name']}' WHERE user_id = '{$_SESSION['u_id']}' ";
+				 	$sqlEdit2 = "UPDATE `bank_details` SET `bank_detail_name` = '{$_POST['bank_name']}', bank_detail_accnt_name = '{$_POST['accnt_name']}', `bank_detail_accnt_number` = '{$_POST['accnt_number']}' WHERE user_id = '{$_SESSION['u_id']}' ";
 
 				 	$resultEdit2 = mysqli_query($connection, $sqlEdit2);
 

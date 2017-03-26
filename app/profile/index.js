@@ -4,8 +4,9 @@ define(['durandal/app', 'durandal/system', 'plugins/router','knockout', 'setting
     var name2 = ko.observable('1');
     var contact2 = ko.observable('2');
     var account_name2 = ko.observable('3');
-    var email2 = ko.observable('4');
-    var bank_name2 = ko.observable('5');
+    var account_number2 = ko.observable('4');
+    var email2 = ko.observable('5');
+    var bank_name2 = ko.observable('6');
 
 
     return {
@@ -15,6 +16,7 @@ define(['durandal/app', 'durandal/system', 'plugins/router','knockout', 'setting
         name : name2,
         contact : contact2,
         account_name : account_name2,
+        account_number : account_number2,
         email : email2,
         bank_name : bank_name2,
         activate : function(){
@@ -31,6 +33,7 @@ define(['durandal/app', 'durandal/system', 'plugins/router','knockout', 'setting
                         name2(data.user_name);
                         contact2(data.phone);
                         account_name2(data.account_name);
+                        account_number2(data.account_number);
                         email2(data.email);
                         bank_name2(data.bank_name);
 
