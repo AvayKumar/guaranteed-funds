@@ -2,8 +2,7 @@
 
 	session_start();	
 
-	$REFERRAL_WEIGHT = 1000;
-
+	
  	$response = array();
 	$response['pay_made'] = '0';
 	$response['amount_recv'] = '0';
@@ -61,12 +60,12 @@
 
 		$response['amount_recv'] = $amount_received;
 
-		$sql_referral = "SELECT referral FROM user WHERE user_id = '{$_SESSION['u_id']}'";
+		$sql_referral = "SELECT `referral_amount` FROM `user` WHERE `user_id` = '{$_SESSION['u_id']}'";
 		$result_referral = mysqli_query($connection, $sql_referral);
 
 		$row_referral = mysqli_fetch_assoc($result_referral);
 
-		$response['bonus'] = ($REFERRAL_WEIGHT)*($row_referral['referral']);
+		$response['bonus'] = ($row_referral['referral_amount']);
 
 		/**
 		 * Geat time left to pay amount, and user details of receiver

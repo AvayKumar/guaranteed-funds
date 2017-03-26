@@ -10,11 +10,7 @@
 		die(json_encode('error_email_exists'));
 	
 	$row_result_check_user = mysqli_fetch_assoc($result_check_user);
-	//$refer_email = $_POST['remail'];
-
-	$sql_referUpdate = "UPDATE `user` SET referral = referral + 1 WHERE `user_email` = '{$_POST['remail']}'";
-	$result_referUpdate = mysqli_query($connection,$sql_referUpdate);
-
+	
 	$pass_hash = password_hash(trim($_POST['pwd']), PASSWORD_DEFAULT);
 
 	$sql_insert = "INSERT INTO  `user`(`user_name`, `user_email`, `user_refemail`, `user_password`, `user_phone`) VALUES('{$_POST['name']}','{$_POST['email']}','{$_POST['remail']}','{$pass_hash}','{$_POST['telephone']}')";
