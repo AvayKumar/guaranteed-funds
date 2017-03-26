@@ -26,7 +26,7 @@
 	/**
 	Check if user has opted for donation
 	*/
-	$sql_donor = "SELECT * FROM transaction_details WHERE user_id_donor = '{$_SESSION['u_id']}'";
+	$sql_donor = "SELECT `transaction_id` FROM transaction_details WHERE user_id_donor = '{$_SESSION['u_id']}'";
 	$result_donor = mysqli_query($connection,$sql_donor);
 
 	 if(mysqli_num_rows($result_donor) == 0)
@@ -98,7 +98,13 @@
 					$response['don'][$i]['time_left']['s'] = $diff->format('%s');
 					$response['don'][$i]['time_left']['d'] = $diff->format('%d');
 				} else {
-					$response['blocked'] = true;
+					// Block user temporarly
+					$sql_block = "UPDATE `user` SET `user_blocked` = true WHERE `user_id` = {$_SESSION['u_id']}"; 
+					$block_result = mysqli_query($connection, $sql_block);
+					if( $block_result ) {
+						$_SESSION['blocked'] = true;
+						$response['blocked'] = true;
+					}
 				}
 				//$date_to = date_add($date, $date_diff);
 
