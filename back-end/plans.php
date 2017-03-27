@@ -31,9 +31,13 @@ if(isset($_POST['package']))
 		if($res_rEmail)
 			$rowEmail = mysqli_fetch_assoc($res_rEmail);
 
+		//print_r($rowEmail);
+		
+		if($rowEmail['user_refemail'] != NULL) {
 		$sql_bonus = "UPDATE `user` SET `referral_amount` = `referral_amount`+ '{$bonus}' WHERE `user_email` = '{$rowEmail['user_refemail']}'";
 		$res_bonus = mysqli_query($connection, $sql_bonus);
-
+		$response['userCheck'] = '?';
+		}
 	}
 
 
