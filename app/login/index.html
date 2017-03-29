@@ -1,21 +1,23 @@
 ﻿<section>
-	<div class="row">
-		<div class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
-			<div id="message"></div>
-			<h1>Please sign in</h1>
-			<div class="well">
-				<form method="post" data-bind="submit: login">
-				    <label for="inputEmail" class="sr-only">Email/ UserID</label>
-				    <input id="inputEmail" type="text" name="email" class="form-control" placeholder="Your Email Address or User ID" style="border-bottom-right-radius: 0; border-bottom-left-radius: 0;" required>
-				    <label for="pwd" class="sr-only">Password</label>
-				    <input id="pwd" type="password" name="pwd" class="form-control" placeholder="Password"  style="border-top-right-radius: 0; border-top-left-radius: 0;" required>
-				    <div class="checkbox">
-			          <!-- <label>
-			            <input type="checkbox" value="remember-me"> Remember me
-			          </label> -->
-			        </div>
-				  	<button type="submit" class="btn btn-block btn-primary">Sign In</button>
-				</form>
+	<div class="container" style="margin-bottom: 80px">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
+				<div id="message"></div>
+				<h1>Please sign in</h1>
+				<div class="well">
+					<form method="post" data-bind="submit: login">
+					    <label for="inputEmail" class="sr-only">Email/ UserID</label>
+					    <input id="inputEmail" type="text" name="email" class="form-control" placeholder="Your Email Address or User ID" style="border-bottom-right-radius: 0; border-bottom-left-radius: 0;" required>
+					    <label for="pwd" class="sr-only">Password</label>
+					    <input id="pwd" type="password" name="pwd" class="form-control" placeholder="Password"  style="border-top-right-radius: 0; border-top-left-radius: 0;" required>
+					    <div class="checkbox">
+				          <!-- <label>
+				            <input type="checkbox" value="remember-me"> Remember me
+				          </label> -->
+				        </div>
+					  	<button type="submit" class="btn btn-block btn-submit">Sign In</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>

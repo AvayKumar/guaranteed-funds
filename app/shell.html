@@ -1,58 +1,78 @@
-﻿<nav class="navbar navbar-default navbar-static-top" role="navigation">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-bar">
-            <span class="sr-only">Toggle Navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#home">
-            <i class="fa fa-home"></i>
-            <span>Guaranteed Funds</span>
-        </a>
+﻿<div>
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-bar">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#home">
+                    <span>Guaranteed Funds</span>
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse"  id="nav-bar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li data-bind="visible : notLoggedIn">
+                        <a href="#signup">JOIN NOW</a>
+                    </li>
+                    <li data-bind="visible : notLoggedIn">
+                        <a href="#login">SIGN IN</a>
+                    </li>
+                    <li data-bind="visible : loggedIn">
+                        <a href="#dashboard">DASHBOARD</a>
+                    </li>
+                    <li data-bind="visible : loggedIn">
+                        <a href="#about">ABOUT US</a>
+                    </li>
+                    <li data-bind="visible : loggedIn">
+                        <a href="#faq">FAQ</a>
+                    </li>
+
+                    <li class="dropdown" data-bind="visible : loggedIn">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span data-bind="text:user"> USER </span> <span class="caret"></span></a>
+                    
+                    <ul class="dropdown-menu">
+                        <li data-bind="visible : loggedIn">
+                            <a href="#profile"><i class="fa fa-cogs" aria-hidden="true"></i> SETTINGS</a>
+                        </li>                    
+                        <li role="separator" class="divider"></li>
+                        <li class="sign-out" data-bind="click : signOut, visible : loggedIn">
+                            <a href="javascript:void(0)"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> SIGN OUT </a>
+                        </li>
+                    </ul>
+                    </li>
+                    <li class="loader hidden-xs" data-bind="css: { active: router.isNavigating }">
+                        <i class="fa fa-spinner fa-spin fa-2x"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div style="min-height: 100%;">
+        <div data-bind="router: { transition:'entrance' }"></div>
     </div>
-
-    <div class="collapse navbar-collapse"  id="nav-bar">
-        <ul class="nav navbar-nav navbar-right">
-            <li data-bind="visible : notLoggedIn">
-                <a href="#signup">JOIN NOW</a>
-            </li>
-            <li data-bind="visible : notLoggedIn">
-                <a href="#login">SIGN IN</a>
-            </li>
-            <li data-bind="visible : loggedIn">
-                <a href="#dashboard">DASHBOARD</a>
-            </li>
-            <li data-bind="visible : loggedIn">
-                <a href="#about">ABOUT US</a>
-            </li>
-            <li data-bind="visible : loggedIn">
-                <a href="#faq">FAQ</a>
-            </li>
-
-            <li class="dropdown" data-bind="visible : loggedIn">
-            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span data-bind="text:user"> USER </span> <span class="caret"></span></a>
-            
-            <ul class="dropdown-menu">
-                <li data-bind="visible : loggedIn">
-                    <a href="#profile"><i class="fa fa-cogs" aria-hidden="true"></i> SETTINGS</a>
-                </li>                    
-                <li role="separator" class="divider"></li>
-                <li class="sign-out" data-bind="click : signOut, visible : loggedIn">
-                    <a href="javascript:void(0)"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> SIGN OUT </a>
-                </li>
-            </ul>
-            </li>
-            <li class="loader hidden-xs" data-bind="css: { active: router.isNavigating }">
-                <i class="fa fa-spinner fa-spin fa-2x"></i>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-<div class="container">
-    <div data-bind="router: { transition:'entrance' }"></div>
-    <div id="data-loader" >
+    <!-- <div id="data-loader" >
         <span></span>
-    </div>
+    </div> -->
+        <!--Footer-->
+    <footer id="footer" class="footer">
+      <div class="container text-center">
+      <ul class="social-links">
+        <li><a href="#link"><i class="fa fa-twitter fa-fw"></i></a></li>
+        <li><a href="#link"><i class="fa fa-facebook fa-fw"></i></a></li>
+        <li><a href="#link"><i class="fa fa-google-plus fa-fw"></i></a></li>
+        <li><a href="#link"><i class="fa fa-dribbble fa-fw"></i></a></li>
+        <li><a href="#link"><i class="fa fa-linkedin fa-fw"></i></a></li>
+      </ul>
+        ©2016 Mentor Theme. All rights reserved
+        <div class="credits">
+            Designed by <a href="https://bootstrapmade.com/">Free Bootstrap Themes</a>
+        </div>
+      </div>
+    </footer>
+    <!--/ Footer-->
 </div>
