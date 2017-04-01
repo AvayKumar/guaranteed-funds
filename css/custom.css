@@ -95,9 +95,9 @@
     width: 100%;
 }
 
-
+/*5FCF81*/
 button.accordion {
-    background-color: #eee;
+    background-color: #dff0d8;
     color: #444;
     cursor: pointer;
     padding: 18px;
@@ -115,7 +115,7 @@ button.accordion.active{
 }
 
 button.accordion.active, button.accordion:hover {
-    background-color: #ddd;
+    background-color: #5FCF81;
     
 }
 
