@@ -3,7 +3,10 @@
     var error = '';
 
     function validate(postData){
-        if(postData[1].value == postData[2].value)
+        var email1 = ((postData[1].value).trim()).toLowerCase();
+        var email2 = ((postData[2].value).trim()).toLowerCase();
+
+        if( email1 == email2 )
             {
                 console.log('Email and Refferal email are same');
                 error = 'Email and Refferal email are same';
