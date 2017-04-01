@@ -95,7 +95,7 @@
     width: 100%;
 }
 
-/*5FCF81*/
+
 button.accordion {
     background-color: #dff0d8;
     color: #444;
@@ -115,8 +115,8 @@ button.accordion.active{
 }
 
 button.accordion.active, button.accordion:hover {
-    background-color: #5FCF81;
-    
+    background-color: #5FCF81;  
+    border-color: #dff0d8 !important;
 }
 
 button.accordion:after {
@@ -152,8 +152,13 @@ button.accordion.active:after {
   border-bottom: 1px solid;
 } 
 
+#f_head{
+    color: #717f86;
+    font-size: 14px;
+    font-weight: 700;
+}
+
 button.accordion:last-of-type {
-    /*background-color: yellow;*/
     border-bottom-style: solid;
 }
 

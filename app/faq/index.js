@@ -6,7 +6,6 @@ define(['durandal/app', 'knockout','durandal/system', 'plugins/router', 'setting
 			
 			var that = event.target;
 			that.classList.toggle("active");
-			//that.className.style = "border-bottom-style: 'groove'";
 			
 			var panel = that.nextElementSibling;
 			if(panel.style.display == 'block'){
