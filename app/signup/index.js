@@ -31,14 +31,18 @@
                     function(data, status){
                  	  console.log(data);
                  	  console.log(status);
-                    if(data.state == 'true'){
+                    if(data.state){
                         settings.loggedIn(true);
                         settings.user_name(data.u_name);                    
                         router.navigate('plans');
+                    } else {
+                        $('#message').empty().html('<div class="alert alert-danger alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\
+                            <span aria-hidden="true">&times;</span></button>\
+                            <strong>Error! </strong>' + data.message +'</div>');
+
                     }
                 },'json');
-             }
-            else{
+             } else { 
                 $('#message').empty().html('<div class="alert alert-danger alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\
                         <span aria-hidden="true">&times;</span></button>\
                         <strong>Error! </strong>' + error +'</div>');

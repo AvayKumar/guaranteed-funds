@@ -2,12 +2,22 @@
 
 	require './require/connection.inc.php';
 
+	$_POST['name']		= trim( strtolower($_POST['name']) );
+	$_POST['email']		= trim( strtolower($_POST['email']) );
+	$_POST['email'] 	= filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+	$_POST['remail']	= trim( strtolower($_POST['remail']) );
+	$_POST['remail'] 	= filter_var($_POST['remail'], FILTER_SANITIZE_EMAIL);
+	$_POST['telephone']	= trim( strtolower($_POST['telephone']) );
  
  	$sql_check_user = "SELECT * FROM `user`WHERE user_email = '{$_POST['email']}'";
 	$result_check_user = mysqli_query($connection,$sql_check_user);
 	
-	if(mysqli_num_rows($result_check_user))	
-		die(json_encode('error_email_exists'));
+	if(mysqli_num_rows($result_check_user))	{
+		$response = array();
+		$response['state'] = false;
+		$response['message'] = 'Email already exists';
+		die(json_encode($response));
+	}
 	
 	$row_result_check_user = mysqli_fetch_assoc($result_check_user);
 	

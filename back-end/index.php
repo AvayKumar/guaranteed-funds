@@ -1,5 +1,5 @@
 <?php
-	
+		die('Access Denied');
 		$date = date_create();
 		$db_date = date_create('2017-03-23 15:14:25');
 		//$window = 5;

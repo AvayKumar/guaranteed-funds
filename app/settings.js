@@ -1,6 +1,6 @@
 define(['knockout'], function(ko) {
   	return {
-        BASE_URL : 'http://192.168.0.14/guaranteed-funds/',   
+        BASE_URL : 'http://localhost/guaranteed-funds/',   
     	loggedIn : ko.observable(false),
         user_name : ko.observable(''),
     	getRoutes : function() {

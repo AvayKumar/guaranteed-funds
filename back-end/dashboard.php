@@ -63,9 +63,10 @@
 		$sql_referral = "SELECT `referral_amount` FROM `user` WHERE `user_id` = '{$_SESSION['u_id']}'";
 		$result_referral = mysqli_query($connection, $sql_referral);
 
-		$row_referral = mysqli_fetch_assoc($result_referral);
-
-		$response['bonus'] = ($row_referral['referral_amount']);
+		if( $result_referral && mysqli_num_rows($result_referral) > 0 ) {
+			$row_referral = mysqli_fetch_assoc($result_referral);
+			$response['bonus'] = ($row_referral['referral_amount']);
+		}
 
 		/**
 		 * Geat time left to pay amount, and user details of receiver

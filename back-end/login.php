@@ -3,6 +3,7 @@
 require './require/connection.inc.php';
 
 $_POST['email'] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+$_POST['email'] = trim( strtolower($_POST['email']) );
 $_POST['pwd']  	= filter_var($_POST['pwd']);
 
 $sql = "SELECT `user_password`, `user_id`, `user_name`, `user_blocked` FROM user WHERE user_email = '{$_POST['email']}'";
