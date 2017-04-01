@@ -69,11 +69,12 @@
 
 .plans-sm-text1, .plans-sm-text2, .plans-sm-text3 {
     color: #5FCF80;
-    font-size: 20px;
+    font-size: 18px;
+    margin-bottom: 0 !important;
 }
 
 .plans-sm-text1 {
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .plans-sm-text3 {
@@ -160,3 +161,42 @@ button.accordion:last-of-type {
   margin-top: 40px;
   margin-bottom: 15px;
 }
+
+.price-table .pricing-head {
+    padding: 20px 40px 10px 40px !important;
+}
+
+.price-table .pricing-head h4 {
+    padding-bottom: 10px !important;
+}
+
+.pricing-head .curency {
+    top: -15px !important;
+}
+
+.pricing-head .amount {
+    font-size: 40px !important;
+}
+
+/* Make the page hieght 100% */
+html, body, div[data-view='shell'] {
+  height: 100%;
+}
+
+.navbar-default .navbar-brand span {
+  font-size: 25px;
+}
+
+/* Set nav-brand size for small devices */
+@media (min-width: 768px) {  
+  .navbar-default .navbar-brand span {
+    font-size: 15px;
+    font-style: bold;
+  }
+}
+
+@media (min-width: 992px) {  
+  .navbar-default .navbar-brand span {
+    font-size: inherit;
+  }
+} 
