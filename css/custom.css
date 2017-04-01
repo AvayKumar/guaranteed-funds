@@ -93,3 +93,70 @@
     box-shadow: none;
     width: 100%;
 }
+
+
+button.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border-color: #73cf80 !important;
+    border: 1px solid ;  
+    border-bottom-style: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+button.accordion.active{
+      border: 1px solid;
+}
+
+button.accordion.active, button.accordion:hover {
+    background-color: #ddd;
+    
+}
+
+button.accordion:after {
+    content: '\f13a';
+    font-size: 16px;
+    font-family: 'FontAwesome';
+    color: #777;
+    float: left;
+    margin-right: 6px;
+}
+
+button.accordion.active:after {
+    content: "\f139"; /* Unicode character for "minus" sign (-) */
+
+}
+#faq div.panel {
+    padding: 0 18px;
+    background-color: white;
+    display: none;
+    max-height: 0;
+    border: 1px solid;
+    border-top-style: none;
+    border-bottom-style: none;    
+    border-radius: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    margin-bottom: 0 !important;
+    border-color: #73cf80 !important;
+    padding: 10px;
+}
+
+#faq div.panel:last-of-type {
+  border-bottom: 1px solid;
+} 
+
+button.accordion:last-of-type {
+    /*background-color: yellow;*/
+    border-bottom-style: solid;
+}
+
+#faq{
+  margin-top: 40px;
+  margin-bottom: 15px;
+}
