@@ -54,7 +54,7 @@
                             for(var i=0; i<(data.don).length; i++) {
                                 $('#receivers')
                                 .append($('<div class="col-xs-12 col-sm-6 col-md-4">\
-                                            <div class="panel panel-primary timer-panel">\
+                                            <div class="panel panel-success timer-panel">\
                                                 <div class="panel-heading"> <h3 class="panel-title">Package : ' + data.don[i].amount + '</h3> </div>\
                                                 <div class="panel-body text-center">\
                                                     <table class="table table-bordered table-striped">\
@@ -76,7 +76,7 @@
                                                     <h4><span class="label label-warning">Pay Before</span></h4>\
                                                     <div id="timer' + i + '" style="margin-bottom: 10px;"></div>\
                                                     <div class="panel-footer" style="background-color: #FFFFFF">\
-                                                        <button class="btn btn-primary btn-block upload"  role="button" data-amount="' + data.don[i].amount + '">Upload <span class="glyphicon glyphicon-upload" aria-hidden="true"></span></button>\
+                                                        <button class="btn btn-submit btn-block upload"  role="button" data-amount="' + data.don[i].amount + '">Upload <span class="glyphicon glyphicon-upload" aria-hidden="true"></span></button>\
                                                     </div>\
                                                 </div>\
                                             </div>\
@@ -111,7 +111,7 @@
                             var buttonMessage =  data.rec[i].fileName ? 'Confirme Payment':'Waiting for payment';    
                                 $('#donors')
                             .append($('<div class="col-xs-12 col-sm-6 col-md-4">\
-                                            <div class="panel panel-primary timer-panel">\
+                                            <div class="panel panel-success timer-panel">\
                                                 <div class="panel-heading"> <h3 class="panel-title">Package : ' + data.rec[i].amount + '</h3> </div>\
                                                 <div class="panel-body text-center">\
                                                     <table class="table table-bordered table-striped">\
@@ -132,7 +132,7 @@
                                                     </table>\
                                                     <div id="timer' + i + '" style="margin-bottom: 10px;"></div>\
                                                     <div class="panel-footer" style="background-color: #FFFFFF">\
-                                                        <button data-tid="' + data.rec[i].tid + '" data-amount="' + data.rec[i].amount + '" class="cnfrm btn btn-primary btn-block'+ fileStatus + '" href="#" role="button">'+ buttonMessage +'</button>\
+                                                        <button data-tid="' + data.rec[i].tid + '" data-amount="' + data.rec[i].amount + '" class="cnfrm btn btn-submit btn-block'+ fileStatus + '" href="#" role="button">'+ buttonMessage +'</button>\
                                                     </div>\
                                                 </div>\
                                             </div>\
@@ -146,7 +146,7 @@
                         for(var i=0; i<(data.wait).length; i++) {
                                 $('#waiting')
                                     .append('<div class="col-xs-12 col-sm-6 col-md-4">\
-                                                <div class="panel panel-primary timer-panel">\
+                                                <div class="panel panel-success timer-panel">\
                                                     <div class="panel-heading"> <h3 class="panel-title">Package : ' + data.wait[i].amount + '</h3> </div>\
                                                     <div class="panel-body text-center">\
                                                         <div class="well well-sm"><h4 style="color: black;">Waiting to be merged <i class="fa fa-clock-o fa-lg" aria-hidden="trie"></i> </h4>\
