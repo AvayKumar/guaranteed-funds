@@ -57,6 +57,9 @@
 			if($resMyemail)
 				$rowMyemail = mysqli_fetch_assoc($resMyemail);
 
+			$_POST['email']		= trim( strtolower($_POST['email']) );
+			$_POST['email'] 	= filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+	
 		 	$sqlCheck = "SELECT `user_email` FROM `user` WHERE `user_email` = '{$_POST['email']}'";
 		 	$resCheck = mysqli_query($connection, $sqlCheck);
 		 			 	

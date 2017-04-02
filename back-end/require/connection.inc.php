@@ -1,8 +1,8 @@
 <?php
 
 	$servername = "localhost";
-	$username = "root";
-	$password = "Cs0129";
+	$username = "phpmyadmin";
+	$password = "123";
 	$database = "guaranteed_funds";
 
 	$connection = new mysqli($servername, $username, $password, $database);
