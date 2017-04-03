@@ -5,8 +5,8 @@
         $response['success'] = false;
         $response['auth'] = isAuthenticated();
         $response['success'] = true;
-        $response['transactionD'] = array();
-        $response['transactionR'] = array();
+        $response['tidD'] = array();
+        $response['tidR'] = array();
         if(isset($_SESSION['u_id']))
             {
                 //$response['user_name'] = $_SESSION['u_name'];
@@ -18,10 +18,10 @@
                 if($res_donor)
                 {
                     while($row = mysqli_fetch_assoc($res_donor)){
-                        $response['transactionD'][$i]['receiver'] = $row['user_id_receiver'];
-                        $response['transactionD'][$i]['t_id'] = $row['transaction_id'];
-                        $response['transactionD'][$i]['amount'] = $row['amount'];
-                        $response['transactionD'][$i]['paid'] = $row['have_paid']; 
+                        $response['tidD'][$i]['receiver'] = $row['user_id_receiver'];
+                        $response['tidD'][$i]['t_id'] = $row['transaction_id'];
+                        $response['tidD'][$i]['amount'] = $row['amount'];
+                        $response['tidD'][$i]['paid'] = $row['have_paid']; 
                         //echo $response['transaction'][$i-1][`paid`].'</br>';
                         $i = $i+1;
                     }
@@ -32,10 +32,10 @@
                 $j = 0;
                 if($res_receiver){
                     while($row = mysqli_fetch_assoc($res_receiver)){
-                        $response['transactionR'][$j]['donor'] = $row['user_id_donor'];
-                        $response['transactionR'][$j]['t_id'] = $row['transaction_id'];
-                        $response['transactionR'][$j]['amount'] = $row['amount'];
-                        $response['transactionR'][$j]['paid'] = $row['have_paid']; 
+                        $response['tidR'][$j]['donor'] = $row['user_id_donor'];
+                        $response['tidR'][$j]['t_id'] = $row['transaction_id'];
+                        $response['tidR'][$j]['amount'] = $row['amount'];
+                        $response['tidR'][$j]['paid'] = $row['have_paid']; 
                         $j = $j+1;
                 }
             }
