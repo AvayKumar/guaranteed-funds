@@ -45,8 +45,8 @@ define(['durandal/app', 'knockout','durandal/system', 'plugins/router', 'setting
                                                           <td>' + data.tidD[i].amount + '</td>\
                                                         </tr>\
                                                         <tr>\
-                                                          <td><strong>Paid</strong></td>\
-                                                          <td>' + data.tidD[i].paid + '</td>\
+                                                          <td><strong>Phone</strong></td>\
+                                                          <td>' + data.tidD[i].phone + '</td>\
                                                         </tr>\
                                                       </tbody>\
                                                     </table>\
@@ -75,8 +75,8 @@ define(['durandal/app', 'knockout','durandal/system', 'plugins/router', 'setting
                                                           <td>' + data.tidR[i].amount + '</td>\
                                                         </tr>\
                                                         <tr>\
-                                                          <td><strong>Paid</strong></td>\
-                                                          <td>' + data.tidR[i].paid + '</td>\
+                                                          <td><strong>Phone</strong></td>\
+                                                          <td>' + data.tidR[i].phone + '</td>\
                                                         </tr>\
                                                       </tbody>\
                                                     </table>\
