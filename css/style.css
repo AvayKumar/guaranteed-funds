@@ -776,6 +776,6 @@ Responsive media queries
         margin-left: 10px;
     }
     .navbar-default .navbar-nav > li > a{
-        text-align: center;
+        text-align: left;
     }
 }
