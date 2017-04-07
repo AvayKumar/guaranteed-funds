@@ -38,6 +38,11 @@
         </li>
 
         <li>
+          <a href="transactions.php">
+            <i class="fa fa-table"></i> <span>Transactions</span>
+          </a>
+        </li>
+        <li>
           <a href="matching.php">
             <i class="fa fa-table"></i> <span>Matching</span>
           </a>

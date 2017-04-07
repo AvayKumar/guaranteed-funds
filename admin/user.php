@@ -38,15 +38,53 @@
     <div class="row">
     <?php 
     
-    $sql_user = "SELECT * FROM `user`";
+    if( isset($_POST['block']) ) {
+      
+      for($i=0;$i<sizeof($_POST['block']);$i++)
+        {
+          //echo $i;
+        $sql="UPDATE `user` SET `user_blocked`='1' WHERE `user_id`='{$_POST['block'][$i]}'";
+        $res=mysqli_query($connection,$sql);
+
+        $sql_block2 = "UPDATE `transaction_details` SET `user_id_receiver`= NULL WHERE `user_id_donor`='{$_POST['block'][$i]}' AND `have_paid`='0'";
+        $res_block2=mysqli_query($connection,$sql_block2);
+
+        $sql_block3 = "UPDATE `transaction_details` SET `user_id_receiver`=NULL WHERE `user_id_receiver`='{$_POST['block'][$i]}' AND `have_paid`='0'";
+        $res_block3 = mysqli_query($connection,$sql_block3);
+        }
+
+        
+        if(sizeof($_POST['block']) && $res)
+          {
+        
+        ?>
+          <div class="alert alert-success alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Congrats! blocked</strong>
+          </div>
+
+        <?php
+          }
+          else
+          {
+        ?>    
+          <div class="alert alert-danger alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Error!</strong>
+          </div>
+
+        <?php  
+          }      
+    }
+
+    
+    $sql_user = "SELECT * FROM `user` WHERE `user_blocked` = '0'";
     $res_user = mysqli_query($connection,$sql_user);
     
     if($res_user){
       ?>
+      <form method='post'>
       <div class="col-xs-12 table-responsive">
           <table class="table table-striped">
           <thead>
           <tr>
+              <th>Select</th>
               <th>User Id</th>
               <th>User Name</th>
               <th>User Email</th>
@@ -62,6 +100,7 @@
         ?>
             
             <tr>
+              <td><input type="checkbox" name="block[]" class="chk" value='<?php echo $row['user_id']?>'/>&nbsp;</td>
               <td><?php echo $row['user_id']?></td>
               <td><?php echo $row['user_name']?></td>
               <td><?php echo $row['user_email']?></td>
@@ -78,7 +117,10 @@
         </tbody>
         </table>
       </div>
-
+      <div class="container">
+      <input type="submit" class="btn btn-primary" value='Block' id="blockBtn" disabled>
+      </div>
+      </form>
     </div> 
     </div>
     </section>
@@ -131,5 +173,16 @@
 <script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+
+
+<script type="text/javascript">
+$("input[type='checkbox']").on('change', function(){
+  console.log($('input[type=\'checkbox\']:checked').size() ); 
+  $('#blockBtn').attr("disabled", $('input[type=\'checkbox\']:checked').size() == 0);
+});
+</script>
+
+
+
 </body>
 </html>

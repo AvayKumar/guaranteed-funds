@@ -37,19 +37,58 @@
     <div class="container">
     <div class="row">
     <?php 
-    if( isset($_POST['unmatch']) ) {
+    if( isset($_POST['unmatch'])) {
       
       for($i=0;$i<sizeof($_POST['unmatch']);$i++)
         {
           //echo $i;
-        $sql="UPDATE `transaction_details` SET `user_id_receiver`=NULL WHERE `transaction_id`='{$_POST['unmatch'][$i]}'";
-        $res=mysqli_multi_query($connection,$sql);
+        if( isset($_POST['btnUnmatch'])){
+
+          $sql="UPDATE `transaction_details` SET `user_id_receiver`=NULL WHERE `transaction_id`='{$_POST['unmatch'][$i]}'";
+          $res=mysqli_multi_query($connection,$sql);
+         }
+
+        else if( isset($_POST['btnPaid'])){
+
+        $sql_confirmPay="UPDATE `transaction_details` SET `have_paid`='1' WHERE `transaction_id`='{$_POST['unmatch'][$i]}'";
+        $result_confirmPay = mysqli_query($connection, $sql_confirmPay);
+        
+        $sql = "SELECT `user_id_receiver`, `amount` FROM `transaction_details` WHERE `transaction_id`='{$_POST['unmatch'][$i]}'";
+        $res = mysqli_query($connection,$sql);
+        if($res)
+          {
+            $row = mysqli_fetch_assoc($res);
+            $sql_updateReceive = "UPDATE `transaction_details` SET `received_count` = `received_count` + 1 WHERE amount = '{$row['amount']}' AND user_id_donor = '{$row['user_id_receiver']}' AND `received_count` < 2";
+            $result_updateReceive = mysqli_query($connection, $sql_updateReceive);             
+          }
+
+        } 
+        
+        }
+
+        if(isset($_POST['btnPaid']) && (!$res || !$result_updateReceive) ){
+          ?>
+          
+          <div class="alert alert-danger alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Error!</strong>
+          </div> 
+
+          <?php
+
+        }
+        else if(isset($_POST['btnPaid']) && $res && $result_updateReceive){
+        ?>
+
+        <div class="alert alert-success alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Confirm Paid!</strong>
+        </div>
+
+        <?php
+
         }
 
         
-        if(sizeof($_POST['unmatch']) && $res)
+        else if( isset($_POST['btnUnmatch']) && sizeof($_POST['unmatch']) && $res )
           {
-        
+
         ?>
           <div class="alert alert-success alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Unmatched succefully!</strong>
           </div>
@@ -116,8 +155,11 @@
     ?>    
         </tbody>
         </table>
-        <input type="submit" class="btn btn-primary" value='Unmatch' id="checkBtn" disabled>
       </div>
+        <div class="container">
+        <input type="submit" class="btn btn-primary" value='Unmatch' id="checkBtn" name="btnUnmatch" disabled>
+        <input type="submit" class="btn btn-primary" value='Mark Paid' id="checkBtn2" name="btnPaid" disabled>
+        </div>
       </form>
 
     </div> 
@@ -311,6 +353,7 @@
 $("input[type='checkbox']").on('change', function(){
   console.log($('input[type=\'checkbox\']:checked').size() ); 
   $('#checkBtn').attr("disabled", $('input[type=\'checkbox\']:checked').size() == 0);
+  $('#checkBtn2').attr("disabled", $('input[type=\'checkbox\']:checked').size() == 0);
 });
 
 $("input[type='radio']").on('change', function(){

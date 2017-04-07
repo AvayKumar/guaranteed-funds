@@ -25,7 +25,7 @@
     <section class="content-header">
      <div class="container">
       <h1>
-        Blocked Users
+        Transactions
         <small>Control panel</small>
       </h1>
       </div>
@@ -37,70 +37,45 @@
     <div class="container">
     <div class="row">
     <?php 
-    
-    if( isset($_POST['unblock']) ) {
       
-      for($i=0;$i<sizeof($_POST['unblock']);$i++)
-        {
-          //echo $i;
-        $sql="UPDATE `user` SET `user_blocked`='0' WHERE `user_id`='{$_POST['unblock'][$i]}'";
-        $res=mysqli_query($connection,$sql);
-        }
-
         
-        if(sizeof($_POST['unblock']) && $res)
-          {
-        
-        ?>
-          <div class="alert alert-success alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Congrats! Unblocked</strong>
-          </div>
-
-        <?php
-          }
-          else
-          {
-        ?>    
-          <div class="alert alert-danger alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Error!</strong>
-          </div>
-
-        <?php  
-          }      
-    }
-
-    $sql_user = "SELECT * FROM `user` WHERE user_blocked = '1'";
-    $res_user = mysqli_query($connection,$sql_user);
+    $sql_match = "SELECT * FROM `transaction_details` WHERE `user_id_receiver` IS NOT NULL AND `have_paid`='1'";
+    $res_match = mysqli_query($connection, $sql_match);
     
-    if($res_user)
-    {
-
+    // $sql_user = "SELECT * FROM `user`";
+    // $res_user = mysqli_query($connection,$sql_user);
+    // if($res_user){
+    //   $map = array();
+    //   while($row = mysqli_fetch_assoc($res_user)){
+    //     $map[$row['user_id']] = $row['user_email'];
+    //   }
+    // }
+    if($res_match){
       ?>
-      <form method="post">
+
       <div class="col-xs-12 table-responsive">
           <table class="table table-striped">
           <thead>
           <tr>
-              <th>Select</th>
-              <th>User Id</th>
-              <th>User Name</th>
-              <th>User Email</th>
-              <th>Referral Email</th>
-              <th>Phone</th>
-              <th>Referral Amount</th>
+              <th>Tranasction Id</th>
+              <th>Donor Id</th>
+              <th>Receiver Id</th>
+              <th>Amount</th>
+              <th>Time</th>
             </tr>
             </thead>
             <tbody>
           <?php
-      while($row = mysqli_fetch_assoc($res_user)){
+      while($row = mysqli_fetch_assoc($res_match)){
+        // echo $row['transaction_id']." ".$row['user_id_donor']." ".$row['user_id_receiver'].'</br>';
         ?>
             
             <tr>
-              <td><input type="checkbox" name="unblock[]" class="chk" value='<?php echo $row['user_id']?>'/>&nbsp;</td>
-              <td><?php echo $row['user_id']?></td>
-              <td><?php echo $row['user_name']?></td>
-              <td><?php echo $row['user_email']?></td>
-              <td><?php echo $row['user_refemail']?></td>
-              <td><?php echo $row['user_phone']?></td>
-              <td><?php echo $row['referral_amount']?></td>
+              <td><?php echo $row['transaction_id']?></td>
+              <td><?php echo $row['user_id_donor']?></td>
+              <td><?php echo $row['user_id_receiver']?></td>
+              <td><?php echo $row['amount']?></td>
+              <td><?php echo $row['time_stamp']?></td>
             </tr>
             
            
@@ -111,15 +86,14 @@
         </tbody>
         </table>
       </div>
-      <div class="container">
-      <input type="submit" class="btn btn-primary" value='Unblock' id="checkBtn" disabled>
-      </div>
-      </form>
 
     </div> 
     </div>
-    </section>  
+    <!--match control panel  -->
+
+    </section>
   </div>
+
   <!-- /.content-wrapper -->
 
 
@@ -136,9 +110,6 @@
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
-
-
-
 <!-- Bootstrap 3.3.6 -->
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <!-- Morris.js charts -->
@@ -174,12 +145,24 @@
 $("input[type='checkbox']").on('change', function(){
   console.log($('input[type=\'checkbox\']:checked').size() ); 
   $('#checkBtn').attr("disabled", $('input[type=\'checkbox\']:checked').size() == 0);
+  $('#checkBtn2').attr("disabled", $('input[type=\'checkbox\']:checked').size() == 0);
 });
+
+$("input[type='radio']").on('change', function(){
+  console.log($('input[type=\'radio\']:checked').size() ); 
+  $('#radioBtn').attr("disabled", $('input[type=\'radio\']:checked').size() <2 );
+});
+
+$("select").on('change', function(e){
+  console.log(this.value); 
+  window.location.href='matching.php?amount='+this.value;
+});
+
+window.onload = function(){  
+  $('#package > option[value=\'<?php echo $_GET['amount']; ?>\']').prop('selected',true);
+};
+
 </script>
-
-
-
 
 </body>
 </html>
-
