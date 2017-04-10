@@ -11,6 +11,7 @@ define(['knockout'], function(ko) {
                 { route: 'dashboard',   	 moduleId: 'dashboard/index',    title: 'Dashboard',  nav: false },
                 { route: 'transactions',     moduleId: 'transactions/index', title: 'Transactions', nav: false },
                 { route: 'plans',            moduleId: 'plans/index',        title: 'Plans',      nav: false},
+                { route: 'support',          moduleId: 'support/index',      title: 'Support',    nav: false},
                 // { route: 'about',            moduleId: 'about/index',        title: 'About Us',   nav: false },
                 // { route: 'faq',              moduleId: 'faq/index',          title: 'FAQ',        nav: false },
                 { route: 'profile',          moduleId: 'profile/index',      title: 'profile',    nav: false }
