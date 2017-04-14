@@ -102,7 +102,6 @@
 					$sql_block = "UPDATE `user` SET `user_blocked` = true WHERE `user_id` = {$_SESSION['u_id']}"; 
 					$block_result = mysqli_query($connection, $sql_block);
 					if( $block_result ) {
-						$_SESSION['blocked'] = true;
 						$response['blocked'] = true;
 					}
 				}

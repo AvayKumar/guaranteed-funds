@@ -23,18 +23,15 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-     <div class="container">
       <h1>
         Users
         <small>Control panel</small>
       </h1>
-      </div>
     </section>
 
     
 
-    <section>
-    <div class="container">
+    <section class="content">
     <div class="row">
     <?php 
     
@@ -80,49 +77,62 @@
     if($res_user){
       ?>
       <form method='post'>
-      <div class="col-xs-12 table-responsive">
-          <table class="table table-striped">
-          <thead>
-          <tr>
-              <th>Select</th>
-              <th>User Id</th>
-              <th>User Name</th>
-              <th>User Email</th>
-              <th>Referral Email</th>
-              <th>Phone</th>
-              <th>Referral Amount</th>
-            </tr>
-            </thead>
-            <tbody>
-          <?php
-      while($row = mysqli_fetch_assoc($res_user)){
-        // echo $row['transaction_id']." ".$row['user_id_donor']." ".$row['user_id_receiver'].'</br>';
-        ?>
-            
-            <tr>
-              <td><input type="checkbox" name="block[]" class="chk" value='<?php echo $row['user_id']?>'/>&nbsp;</td>
-              <td><?php echo $row['user_id']?></td>
-              <td><?php echo $row['user_name']?></td>
-              <td><?php echo $row['user_email']?></td>
-              <td><?php echo $row['user_refemail']==NULL?'None':$row['user_refemail']?></td>
-              <td><?php echo $row['user_phone']?></td>
-              <td><?php echo $row['referral_amount']?></td>
-            </tr>
-            
-           
-        <?php
-      }
-    }
-    ?>    
-        </tbody>
-        </table>
-      </div>
-      <div class="container">
-      <input type="submit" class="btn btn-primary" value='Block' id="blockBtn" disabled>
-      </div>
+      <div class="col-xs-12">
+        <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">Monthly Recap Report</h3>
+                <div class="box-tools pull-right">
+                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>User Id</th>
+                        <th>User Name</th>
+                        <th>User Email</th>
+                        <th>Referral Email</th>
+                        <th>Phone</th>
+                        <th>Referral Amount</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                    <?php
+                while($row = mysqli_fetch_assoc($res_user)){
+                  // echo $row['transaction_id']." ".$row['user_id_donor']." ".$row['user_id_receiver'].'</br>';
+                  ?>
+                      
+                      <tr>
+                        <td><input type="checkbox" name="block[]" class="chk" value='<?php echo $row['user_id']?>'/>&nbsp;</td>
+                        <td><?php echo $row['user_id']?></td>
+                        <td><?php echo $row['user_name']?></td>
+                        <td><?php echo $row['user_email']?></td>
+                        <td><?php echo $row['user_refemail']==NULL?'None':$row['user_refemail']?></td>
+                        <td><?php echo $row['user_phone']?></td>
+                        <td><?php echo $row['referral_amount']?></td>
+                      </tr>
+                      
+                     
+                  <?php
+                }
+              }
+              ?>    
+                  </tbody>
+                  </table>
+                </div>
+              </div><!-- /.box-body -->
+              <div class="box-footer clearfix">            
+                <input type="submit" class="btn btn-primary" value='Block' id="blockBtn" disabled>
+              </div>
+            </div><!-- /.box -->
+          </div>
       </form>
-    </div> 
-    </div>
+    </div><!-- /.row --> 
     </section>
 
     
