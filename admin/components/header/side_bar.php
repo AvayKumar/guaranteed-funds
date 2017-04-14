@@ -34,7 +34,7 @@
 
         <li>
           <a href="transactions.php">
-            <i class="fa fa-table"></i> <span>Transactions</span>
+            <i class="fa fa-check"></i> <span>Transactions</span>
           </a>
         </li>
         <li>

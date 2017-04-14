@@ -1,3 +1,12 @@
+  <?php 
+  if(isset($_POST['logout']))
+  {
+    session_unset(); 
+    session_destroy(); 
+    header('location:./login.php');
+  }
+
+  ?>
   <header class="main-header">
     <!-- Logo -->
     <a href="index.php" class="logo">
@@ -241,11 +250,10 @@
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <form method="POST">
+                  <input type="submit" name="logout" value="Sign Out" class="btn btn-default btn-flat">
+                  </form>
                 </div>
               </li>
             </ul>
