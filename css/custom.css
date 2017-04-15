@@ -5,6 +5,13 @@
       box-shadow: 0px 0px 5px #888888;*/            
 }   
 
+.forgot{
+  color: black;
+  text-decoration: none !important;
+  margin: 5px 0px 8px 0px;
+}
+
+
 #data-loader {
   position: absolute;
   top: 0;

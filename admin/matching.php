@@ -127,6 +127,7 @@ require '../back-end/require/connection.inc.php'
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+            <div class="table-responsive">
                 <table class="table table-striped">
                   <thead>
                     <tr>
@@ -158,6 +159,7 @@ require '../back-end/require/connection.inc.php'
         ?>
                   </tbody>
                 </table>
+              </div>
             </div><!-- /.box-body -->
             <div class="box-footer clearfix">
               <input type="submit" class="btn btn-primary" value='Unmatch' id="checkBtn" name="btnUnmatch" disabled>

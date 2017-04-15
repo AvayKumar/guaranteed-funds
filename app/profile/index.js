@@ -19,6 +19,7 @@ define(['durandal/app', 'durandal/system', 'plugins/router','knockout', 'setting
         account_number : account_number2,
         email : email2,
         bank_name : bank_name2,
+        
         activate : function(){
             //console.log('?');
             $.post(settings.BASE_URL + 'back-end/util.php?func_name=authStatus2', 

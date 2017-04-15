@@ -94,6 +94,87 @@
 		
 	}
 
+	function sendEmail(){
+		require 'require/connection.inc.php';
+
+		$sqlEmail="SELECT `user_email` FROM `user` WHERE `user_email` = '{$_POST['email']}'";
+		$resEmail=mysqli_query($connection,$sqlEmail);
+
+		$response['state']=true;
+		
+		if($resEmail && mysqli_num_rows($resEmail)==0)
+			{ 
+				$response['user_verify']='Invalid Email';
+				$response['state']=false;
+			}
+		else{	
+				$time_stamp = date('Y-m-d H:i:s');
+				$token = password_hash(($time_stamp), PASSWORD_DEFAULT);
+				
+				$row=mysqli_fetch_assoc($resEmail);
+
+				$sql_token="UPDATE `user` SET `token`='{$token}' WHERE `user_email`='{$row['user_email']}'";
+				$res_token=mysqli_query($connection,$sql_token);
+
+				$response['user_verify']='Mail Sent Succesfully';
+			
+				$to      = '{$row[user_email]}';
+				$subject = 'Password recovery';
+				$message = 'hello';
+				$headers = 'From: guaranteedfundsorg@gmail.com' . "\r\n" .
+				    'Reply-To: guaranteedfundsorg@gmail.com' . "\r\n" .
+				    'X-Mailer: PHP/' . phpversion();
+
+				mail($to, $subject, $message, $headers);
+			
+			}
+
+		echo json_encode($response);
+	}
+
+	function changePassword(){
+	
+		require 'require/connection.inc.php';
+		
+		$sql="SELECT `token` FROM `user` WHERE `user_email`='{$_POST['email']}'";
+		$res=mysqli_query($connection,$sql);
+
+		$response['state']=false;
+
+		if($res){
+		
+		$row=mysqli_fetch_assoc($res);
+		$_POST['token']= filter_var($_POST['token']);
+		
+		if(mysqli_num_rows($res)==0)
+		{
+			$response['log']='Invalid Email';
+			die(json_encode($response));
+		}
+
+		if( (trim($_POST['token'])== $row['token']) ) {		
+			
+			$pass = password_hash(($_POST['pwd']), PASSWORD_DEFAULT);
+			$sql_pwd="UPDATE `user` SET `user_password`= '{$pass}' WHERE `user_email`='{$_POST['email']}'";
+			$res_pwd=mysqli_query($connection,$sql_pwd);
+
+			if($res_pwd){
+				$response['log']='Password Changed';
+				$response['state']=true;
+			}
+			else
+				$response['log']='Unexpected error';
+		}
+		else{
+			$response['log']='Invalid Token';
+		}	
+
+		}
+
+		echo json_encode($response);	
+	}
+
+
     function confirmPayment(){
     	session_start();
     	$response = array();
