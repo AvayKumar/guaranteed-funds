@@ -20,7 +20,7 @@ define(['durandal/app', 'durandal/system', 'plugins/router','knockout', 'setting
                     
                     $('#sectionA #message').empty().html('<div class="alert alert-danger alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\
                     <span aria-hidden="true">&times;</span></button>\
-                    <strong>Error! </strong>' + 'Password misamtch' +'</div>');
+                    <strong>Error! </strong>' + 'Password mismatch' +'</div>');
                     
              }
              else{

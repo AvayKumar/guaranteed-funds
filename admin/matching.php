@@ -101,7 +101,16 @@ require '../back-end/require/connection.inc.php'
     <?php  
       }      
     }
+    $sql_user = "SELECT `user_email`, `user_id` FROM `user`";
+    $res_user = mysqli_query($connection,$sql_user);
 
+    $userMap = array();
+
+    while($row=mysqli_fetch_assoc($res_user)){
+      $userMap[$row['user_id']]=$row['user_email'];
+    }
+      // print_r($userMap);
+      // echo $userMap[5];
     $sql_match = "SELECT * FROM `transaction_details` WHERE `user_id_receiver` IS NOT NULL AND `have_paid`='0'";
     $res_match = mysqli_query($connection, $sql_match);
     
@@ -134,7 +143,9 @@ require '../back-end/require/connection.inc.php'
                       <th>Select</th>
                       <th>Tranasction Id</th>
                       <th>Donor Id</th>
+                      <th>Donor Email</th>
                       <th>Receiver Id</th>
+                      <th>Receiver Email</th>
                       <th>Amount</th>
                       <th>Time</th>
                       <th>Status</th>
@@ -148,7 +159,9 @@ require '../back-end/require/connection.inc.php'
                       <td><input type="checkbox" name="unmatch[]" class="chk" value='<?php echo $row['transaction_id']?>'/>&nbsp;</td>
                       <td><?php echo $row['transaction_id']?></td>
                       <td><?php echo $row['user_id_donor']?></td>
-                      <td><?php echo $row['user_id_receiver']==NULL?'Not Matched':$row['user_id_receiver']?></td>
+                      <td><?php echo $userMap[$row['user_id_donor']]?></td>
+                      <td><?php echo $row['user_id_receiver']?></td>
+                      <td><?php echo $userMap[$row['user_id_receiver']]?></td>
                       <td><?php echo $row['amount']?></td>
                       <td><?php echo $row['time_stamp']?></td>
                       <td>Pending</td>
@@ -233,6 +246,7 @@ require '../back-end/require/connection.inc.php'
                           <tr>
                             <th>Select</th>
                             <th>Donor Id</th>
+                            <th>Donor Email</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -241,13 +255,14 @@ require '../back-end/require/connection.inc.php'
                           $_GET['amount']='10000';
                         }
 
-                        $sql_donor="SELECT t.user_id_donor AS `user_id_donor`,t.transaction_id AS `transaction_id` FROM `transaction_details` t INNER JOIN `user` u ON t.user_id_donor=u.user_id WHERE t.user_id_receiver IS NULL AND t.amount='{$_GET['amount']}' AND u.user_blocked='0'";
+                        $sql_donor="SELECT t.user_id_donor AS `user_id_donor`,t.transaction_id AS `transaction_id`, u.user_email AS `user_email` FROM `transaction_details` t INNER JOIN `user` u ON t.user_id_donor=u.user_id WHERE t.user_id_receiver IS NULL AND t.amount='{$_GET['amount']}' AND u.user_blocked='0'";
                         $res_donor=mysqli_query($connection,$sql_donor);
                         while($row = mysqli_fetch_assoc($res_donor)){
                       ?>
                         <tr>
                           <td><input type="radio" name="match1" class="radio" value='<?php echo $row['transaction_id']?>'/>&nbsp;</td>
                           <td><?php echo $row['user_id_donor'];?></td>
+                          <td><?php echo $row['user_email'];?></td>
                         </tr>
 
                     <?php
@@ -275,11 +290,17 @@ require '../back-end/require/connection.inc.php'
                   <tr>
                       <th>Select</th>
                       <th>Receiver Id</th>
+                      <th>Receiver Email</th>
                     </tr>
                   </thead>
                   <tbody>
                   <?php
-                    $sql_receiver="SELECT t.user_id_donor AS `user_id_donor` FROM `transaction_details` t INNER JOIN `user` u ON t.user_id_donor = u.user_id WHERE t.user_id_receiver IS NOT NULL AND t.have_paid ='1' AND t.amount ='{$_GET['amount']}' AND t.received_count < '2' AND u.user_blocked='0'";
+                    // $sql_receiver="SELECT t.user_id_donor AS `user_id_donor`, u.user_email AS `user_email` FROM `transaction_details` t INNER JOIN `user` u ON t.user_id_donor = u.user_id WHERE t.user_id_receiver IS NOT NULL AND t.have_paid ='1' AND t.amount ='{$_GET['amount']}' AND t.received_count < '2' AND u.user_blocked='0'";
+                    
+                    $sql_receiver="SELECT t.user_id_donor AS `user_id_donor`, u.user_email AS `user_email` FROM `transaction_details` t INNER JOIN `user` u ON t.user_id_donor = u.user_id  WHERE  t.have_paid ='1' AND t.amount ='{$_GET['amount']}' AND t.received_count < '2' AND u.user_blocked='0' AND `user_id_donor` NOT IN ( SELECT `user_id_receiver` AS `user_id_donor` FROM `transaction_details`  WHERE `user_id_receiver`IS NOT NULL AND `amount`='{$_GET['amount']}' AND `have_paid`='0' GROUP BY `user_id_receiver` HAVING count(*) = '2' )";
+
+
+
                     $res_receiver=mysqli_query($connection,$sql_receiver);
 
                     while($row = mysqli_fetch_assoc($res_receiver)){
@@ -287,6 +308,7 @@ require '../back-end/require/connection.inc.php'
                     <tr>
                       <td><input type="radio" name="match2" class="radio" value='<?php echo $row['user_id_donor']?>'/>&nbsp;</td>
                       <td><?php echo $row['user_id_donor'];?></td>
+                      <td><?php echo $row['user_email'];?></td>
                     </tr>
               
                   <?php

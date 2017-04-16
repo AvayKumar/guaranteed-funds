@@ -11,15 +11,18 @@
 	$j = 0;
 	for($i = 0; $i < $num_packages ; $i++)
 	{		
-		$query_donor = "SELECT `transaction_id`, `user_id_donor`, `user_id_receiver`, `amount`, `have_paid`, `received_count`,`time_stamp` 			
-					   FROM transaction_details WHERE `user_id_receiver` IS NULL AND `amount` = '{$package[$i]}' ORDER BY `time_stamp`";
+		$query_donor = "SELECT `transaction_id`, `user_id_donor`, `user_id_receiver`, `amount`, `have_paid`, `received_count`,`time_stamp` FROM transaction_details WHERE `user_id_receiver` IS NULL AND `amount` = '{$package[$i]}' ORDER BY `time_stamp`";
 			   
 		$result_donor = mysqli_query($connection, $query_donor);
 
 
-		$query_receiver = "SELECT `transaction_id`, `user_id_donor`, `user_id_receiver`, `amount`, `have_paid`, `received_count`, `time_stamp` FROM transaction_details WHERE `have_paid` = '1' AND `received_count` < '2' AND `amount` = '{$package[$i]}' ORDER BY received_count DESC,`time_stamp`";
+		// $query_receiver = "SELECT `transaction_id`, `user_id_donor`, `user_id_receiver`, `amount`, `have_paid`, `received_count`, `time_stamp` FROM transaction_details WHERE `have_paid` = '1' AND `received_count` < '2' AND `amount` = '{$package[$i]}' ORDER BY received_count DESC,`time_stamp`";
+
+		$query_receiver = "SELECT `transaction_id`, `user_id_donor`, `user_id_receiver`, `amount` FROM `transaction_details` WHERE `amount`='{$package[$i]}' AND `have_paid`='1' AND `received_count`<'2' AND `user_id_donor` NOT IN ( SELECT `user_id_receiver` AS `user_id_donor` FROM `transaction_details`  WHERE `user_id_receiver`IS NOT NULL AND `amount`='{$package[$i]}' AND `have_paid`='0' GROUP BY `user_id_receiver` HAVING count(*) = '2' )"; 
+
 
 		$result_receiver = mysqli_query($connection, $query_receiver);				   		
+		
 		
 		if( $result_donor && $result_receiver ) {
 			while( ($row1 = mysqli_fetch_assoc($result_donor)) && ($row2 = mysqli_fetch_assoc($result_receiver) )){
@@ -28,7 +31,8 @@
 					$match[$j]['donor_tid'] = $row1['transaction_id'];
 					$match[$j]['D'] = $row1['user_id_donor'];
 					$match[$j]['R'] = $row2['user_id_donor'];
-					$j++;									
+					$j++;
+					   echo $j;									
 			}
 		}
 

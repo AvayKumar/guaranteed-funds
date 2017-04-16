@@ -95,6 +95,7 @@
 	}
 
 	function sendEmail(){
+
 		require 'require/connection.inc.php';
 
 		$sqlEmail="SELECT `user_email` FROM `user` WHERE `user_email` = '{$_POST['email']}'";
@@ -118,15 +119,15 @@
 
 				$response['user_verify']='Mail Sent Succesfully';
 			
-				$to      = '{$row[user_email]}';
-				$subject = 'Password recovery';
+				$to      = 'support@guaranteedfunds.org';
+				$subject = 'the subject';
 				$message = 'hello';
-				$headers = 'From: guaranteedfundsorg@gmail.com' . "\r\n" .
-				    'Reply-To: guaranteedfundsorg@gmail.com' . "\r\n" .
+				$headers = 'From: support@guaranteedfunds.org' . "\r\n" .
+				    'Reply-To: support@guaranteedfunds.org' . "\r\n" .
 				    'X-Mailer: PHP/' . phpversion();
 
 				mail($to, $subject, $message, $headers);
-			
+				// echo $x;
 			}
 
 		echo json_encode($response);
