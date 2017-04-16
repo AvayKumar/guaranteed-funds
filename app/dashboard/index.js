@@ -108,7 +108,7 @@
                         if( (data.rec).length > 0 ) {
                             for(var i=0; i<(data.rec).length; i++) {
                             var fileStatus = data.rec[i].fileName ? '':' disabled';  
-                            var buttonMessage =  data.rec[i].fileName ? 'Confirme Payment':'Waiting for payment';    
+                            var buttonMessage =  data.rec[i].fileName ? 'Confirm Payment':'Waiting for payment';    
                                 $('#donors')
                             .append($('<div class="col-xs-12 col-sm-6 col-md-4">\
                                             <div class="panel panel-success timer-panel">\

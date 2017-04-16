@@ -7,10 +7,10 @@
 	$_POST['message']	= trim( strtolower($_POST['message']) );
 
 
-	$to      = 'Guaranteed Funds support <113CS0129@gmail.com>';
+	$to = 'guaranteedfundsorg@gmail.com';
 	$subject = $_POST['subject'];
-	$message = wordwrap($_POST['message'], 70);
-	$headers = 'From: {$_POST[\'name\']} <{$_POST[\'email\']}>' . "\r\n" .
+	$message = $_POST['message'];
+	$headers = 'From: '.$_POST['email']."\r\n" .
 	    'X-Mailer: PHP/' . phpversion();
 
 	mail($to, $subject, $message, $headers);

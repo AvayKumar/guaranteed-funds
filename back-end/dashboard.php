@@ -9,7 +9,7 @@
 	$response['pay_received'] = '0';
 	
 
-	$TIME_INTERVAL = 'PT48H';
+	$TIME_INTERVAL = 'PT14H';
 
 	if(!isset($_SESSION['u_id'])) {
 		$response['auth'] = false;

@@ -119,11 +119,13 @@
 
 				$response['user_verify']='Mail Sent Succesfully';
 			
-				$to      = 'support@guaranteedfunds.org';
-				$subject = 'the subject';
-				$message = 'hello';
+				$to      = $row['user_email'];
+				$subject = 'Password reset';
+				$message = 'To change your password use the token below.'."\r\n".
+						    'at the url:http://guaranteedfunds.org/#recover'."\r\n"."\r\n".
+							'Token:'."\r\n"."\r\n".
+							$token;
 				$headers = 'From: support@guaranteedfunds.org' . "\r\n" .
-				    'Reply-To: support@guaranteedfunds.org' . "\r\n" .
 				    'X-Mailer: PHP/' . phpversion();
 
 				mail($to, $subject, $message, $headers);
@@ -137,6 +139,9 @@
 	
 		require 'require/connection.inc.php';
 		
+		$_POST['email']	= trim( strtolower($_POST['email']) );
+		$_POST['email'] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+	
 		$sql="SELECT `token` FROM `user` WHERE `user_email`='{$_POST['email']}'";
 		$res=mysqli_query($connection,$sql);
 
