@@ -22,9 +22,20 @@
 
 	require './require/connection.inc.php';
 	
+	
+	$sql_post="SELECT `content` FROM `post` WHERE `time` IN (SELECT MAX(`time`) FROM `post`)";
+	$res_post=mysqli_query($connection,$sql_post);
+
+	if($res_post){
+		$response['numberPost']=mysqli_num_rows($res_post);
+		$row=mysqli_fetch_assoc($res_post);
+		$response['content']=$row['content'];
+	}
+
 	/**
 	Check if user has opted for donation
 	*/
+
 	$sql_donor = "SELECT `transaction_id` FROM transaction_details WHERE user_id_donor = '{$_SESSION['u_id']}'";
 	$result_donor = mysqli_query($connection,$sql_donor);
 

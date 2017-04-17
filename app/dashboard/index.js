@@ -5,6 +5,7 @@
     var amount = ko.observable('');
     var referral_bonus = ko.observable('');
     var can_submit = ko.observable(false);
+    var post = ko.observable('');
 
     return {
     	pay_received : payment_received,
@@ -49,6 +50,16 @@
                             router.navigate('plans');
                             return;
                         }
+
+                        if(data.numberPost){
+                        $('#notification').empty().html('<div class="alert alert-danger alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\
+                        <span aria-hidden="true">&times;</span></button>\
+                        <strong>' + data.content +'</strong></div>');                    
+
+                        }    
+
+
+
 
                         if( (data.don).length > 0 ) {
                             for(var i=0; i<(data.don).length; i++) {

@@ -200,6 +200,7 @@
 
     }
 
+
 	if( isset($_GET['func_name']) ) {
 		call_user_func($_GET['func_name']);	
 	} else {
