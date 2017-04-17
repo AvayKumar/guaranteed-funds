@@ -25,6 +25,22 @@
         return true;    
     };
     return {
+        
+        activate: function(){
+            $.post(settings.BASE_URL + 'back-end/util.php?func_name=authStatus', 
+                function(data, status) {
+
+                if( status == 'success' && data.auth ) { 
+                    
+                router.navigate('#dashboard');
+                
+                }
+
+            },'json');
+            
+            
+        },
+
 		doSomething : function(formElement) {
 			 var postData = $(formElement).serializeArray();
         			

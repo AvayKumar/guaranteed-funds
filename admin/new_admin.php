@@ -1,4 +1,15 @@
-<?php require '../back-end/require/connection.inc.php' ?>
+<?php 
+  
+session_start();
+if(!isset($_SESSION['admin_id'])){
+
+  header('location:./login.php');
+
+}  
+
+require '../back-end/require/connection.inc.php' 
+
+?>
 
 <!DOCTYPE html>
 <html>

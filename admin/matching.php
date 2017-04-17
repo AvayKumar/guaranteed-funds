@@ -106,11 +106,12 @@ require '../back-end/require/connection.inc.php'
 
     $userMap = array();
 
+    
+
     while($row=mysqli_fetch_assoc($res_user)){
       $userMap[$row['user_id']]=$row['user_email'];
     }
-      // print_r($userMap);
-      // echo $userMap[5];
+      
     $sql_match = "SELECT * FROM `transaction_details` WHERE `user_id_receiver` IS NOT NULL AND `have_paid`='0'";
     $res_match = mysqli_query($connection, $sql_match);
     
@@ -302,6 +303,15 @@ require '../back-end/require/connection.inc.php'
 
 
                     $res_receiver=mysqli_query($connection,$sql_receiver);
+
+                    ?> 
+                    <tr>
+                      <td><input type="radio" name="match2" class="radio" value='0'/>&nbsp;</td>
+                      <td>0</td>                          
+                      <td><?php echo $userMap[0]?></td>
+                    </tr>
+                    <?php  
+
 
                     while($row = mysqli_fetch_assoc($res_receiver)){
                   ?>      

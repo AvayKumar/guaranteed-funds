@@ -6,9 +6,17 @@ define(['durandal/app', 'durandal/system', 'plugins/router','knockout', 'setting
     return {
         email : email2,
        
-        activate : function(){
-            
+        activate: function(){
+            $.post(settings.BASE_URL + 'back-end/util.php?func_name=authStatus', 
+                function(data, status) {
 
+                if( status == 'success' && data.auth ) { 
+                    
+                router.navigate('#dashboard');
+                
+                }
+
+            },'json');            
         },
 
         sendEmail : function(formElement)

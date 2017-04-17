@@ -23,6 +23,8 @@
 
         activate: function () {
 
+            console.log(settings.loggedIn());
+
             router.map( settings.getRoutes() )
             .buildNavigationModel()
             .mapUnknownRoutes('hello/index', 'not-found')

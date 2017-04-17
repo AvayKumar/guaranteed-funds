@@ -13,7 +13,7 @@
 
 	if(mysqli_num_rows($result_email) == 0) {
 		 $response['user_verify'] = 'Invalid email'; 
-		 $response['status'] = 'false';
+		 $response['status'] = false;
 		die(json_encode($response));
 	}
 

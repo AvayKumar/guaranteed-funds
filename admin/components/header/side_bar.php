@@ -52,6 +52,16 @@
             <i class="fa fa-ban"></i> <span>Blocked</span>
           </a>
         </li>
+        <li>
+          <a href="new_admin.php">
+            <i class="fa fa-user-plus"></i> <span>Add admin</span>
+          </a>
+        </li>
+        <li>
+          <a href="post.php">
+            <i class="fa fa-bell"></i> <span>Post</span>
+          </a>
+        </li>
         
         <!-- <li class="treeview">
           <a href="#">

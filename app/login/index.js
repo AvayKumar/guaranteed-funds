@@ -1,5 +1,19 @@
 ﻿define(['durandal/app', 'durandal/system', 'plugins/router', 'knockout', 'settings'], function (app, system, router, ko, settings) {
     return {
+
+        activate: function(){
+            $.post(settings.BASE_URL + 'back-end/util.php?func_name=authStatus', 
+                function(data, status) {
+
+                if( status == 'success' && data.auth ) { 
+                    
+                router.navigate('#dashboard');
+                
+                }   
+                
+            },'json');           
+        },
+
         login : function(formElement) {
 			 var postData = $(formElement).serializeArray();
 			 console.log( postData );

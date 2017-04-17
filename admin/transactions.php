@@ -50,6 +50,17 @@ require '../back-end/require/connection.inc.php'
                 
             $sql_match = "SELECT * FROM `transaction_details` WHERE `user_id_receiver` IS NOT NULL AND `have_paid`='1'";
             $res_match = mysqli_query($connection, $sql_match);
+
+
+            $sql_user = "SELECT `user_email`, `user_id` FROM `user`";
+            $res_user = mysqli_query($connection,$sql_user);
+
+            $userMap = array();
+
+            while($row=mysqli_fetch_assoc($res_user)){
+              $userMap[$row['user_id']]=$row['user_email'];
+            }
+    
             
             // $sql_user = "SELECT * FROM `user`";
             // $res_user = mysqli_query($connection,$sql_user);
@@ -78,7 +89,9 @@ require '../back-end/require/connection.inc.php'
                                     <tr>
                                         <th>Tranasction Id</th>
                                         <th>Donor Id</th>
+                                        <th>Donor Email</th>
                                         <th>Receiver Id</th>
+                                        <th>Receiver Email</th>
                                         <th>Amount</th>
                                         <th>Time</th>
                                     </tr>
@@ -90,7 +103,9 @@ require '../back-end/require/connection.inc.php'
                                     <tr>
                                       <td><?php echo $row['transaction_id']?></td>
                                       <td><?php echo $row['user_id_donor']?></td>
+                                      <td><?php echo $userMap[$row['user_id_donor']]?></td>
                                       <td><?php echo $row['user_id_receiver']?></td>
+                                      <td><?php echo $userMap[$row['user_id_receiver']]?></td>
                                       <td><?php echo $row['amount']?></td>
                                       <td><?php echo $row['time_stamp']?></td>
                                     </tr>

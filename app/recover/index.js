@@ -8,9 +8,19 @@ define(['durandal/app', 'durandal/system', 'plugins/router','knockout', 'setting
         pwd : ko.observable(''),
         cpwd : ko.observable(''),
     
-        activate : function(){
-            //console.log('?');
+        activate: function(){
+            $.post(settings.BASE_URL + 'back-end/util.php?func_name=authStatus', 
+                function(data, status) {
+
+                if( status == 'success' && data.auth ) { 
+                    
+                router.navigate('#dashboard');
+                
+                }
+
+            },'json');                        
         },
+
 
         newPassword : function(formElement)
         {
