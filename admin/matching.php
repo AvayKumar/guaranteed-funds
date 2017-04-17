@@ -234,6 +234,7 @@ require '../back-end/require/connection.inc.php'
                 <select class="form-control" id="package">
                   <option value = '10000'>10,000</option>
                   <option value = '30000'>30,000</option>
+                  <option value = '50000'>50,000</option>
                   <option value = '100000'>100,000</option>
                   <option value = '200000'>200,000</option>
                   <option value = '500000'>500,000</option>

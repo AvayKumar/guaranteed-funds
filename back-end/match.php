@@ -6,7 +6,7 @@
 
 	$response['insert'] = 'check'; 
 	$num_packages = 6;
-	$package = array('10000','20000','30000','50000','100000','500000');
+	$package = array('10000','30000','50000','100000','200000','500000');
 	$match = array();
 	$j = 0;
 	for($i = 0; $i < $num_packages ; $i++)
