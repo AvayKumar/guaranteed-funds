@@ -18,6 +18,7 @@
 	        	if($connection){
 	        		$sql_fileUpdate = "UPDATE `transaction_details` SET `file_name` = '{$file_name}' WHERE `user_id_donor` = '{$_SESSION['u_id']}' AND `amount` = '{$_POST['package']}' AND `have_paid` ='0'";
 	        		$result_fileUpdate = mysqli_query($connection, $sql_fileUpdate);
+
 	        	}
 	        	
 	        	header('Location: http://'. $_SERVER['SERVER_NAME'] .'/guaranteed-funds/#dashboard');

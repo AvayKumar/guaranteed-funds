@@ -11,6 +11,11 @@
   margin: 5px 0px 8px 0px;
 }
 
+#heading{
+  font-weight: 100!important;
+  color: #62bc7c !important;
+}
+
 .section-padding{
   padding: 60px 30px 30px 30px !important;
 }
