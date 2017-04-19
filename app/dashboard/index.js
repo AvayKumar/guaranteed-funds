@@ -51,10 +51,11 @@
                             return;
                         }
 
-                        if(data.numberPost){
-                        $('#notification').empty().html('<div class="alert alert-danger alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\
+                        for(var j=0; j<data.numberPost; j++){
+
+                        $('#notification').append($('<div class="alert alert-danger alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\
                         <span aria-hidden="true">&times;</span></button>\
-                        <strong>' + data.content +'</strong></div>');                    
+                        <strong>' + data.content[j] +'</strong></div>'));                    
 
                         }    
 

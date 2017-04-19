@@ -23,13 +23,16 @@
 	require './require/connection.inc.php';
 	
 	
-	$sql_post="SELECT `content` FROM `post` WHERE `time` IN (SELECT MAX(`time`) FROM `post`)";
+	$sql_post="SELECT `content` FROM `post`";
 	$res_post=mysqli_query($connection,$sql_post);
 
 	if($res_post){
 		$response['numberPost']=mysqli_num_rows($res_post);
-		$row=mysqli_fetch_assoc($res_post);
-		$response['content']=$row['content'];
+		$j=0;
+		while($row=mysqli_fetch_assoc($res_post)){
+			$response['content'][$j++]=$row['content'];
+		}
+
 	}
 
 	/**

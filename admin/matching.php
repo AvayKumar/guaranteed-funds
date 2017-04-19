@@ -230,7 +230,7 @@ require '../back-end/require/connection.inc.php'
         <div class="box-body">
           <div class="row">    
             <div class="col-xs-12">
-              <div class="form-group">
+              <div class="form-group"> 
                 <select class="form-control" id="package">
                   <option value = '10000'>10,000</option>
                   <option value = '30000'>30,000</option>
