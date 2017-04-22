@@ -54,11 +54,20 @@ require '../back-end/require/connection.inc.php'
         $sql="UPDATE `user` SET `user_blocked`='1' WHERE `user_id`='{$_POST['block'][$i]}'";
         $res=mysqli_query($connection,$sql);
 
-        $sql_block2 = "UPDATE `transaction_details` SET `user_id_receiver`= NULL WHERE `user_id_donor`='{$_POST['block'][$i]}' AND `have_paid`='0'";
+        // $sql_block2 = "UPDATE `transaction_details` SET `user_id_receiver`= NULL WHERE `user_id_donor`='{$_POST['block'][$i]}' AND `have_paid`='0'";
+        // $res_block2=mysqli_query($connection,$sql_block2);
+
+        // $sql_block3 = "UPDATE `transaction_details` SET `user_id_receiver`=NULL WHERE `user_id_receiver`='{$_POST['block'][$i]}' AND `have_paid`='0'";
+        // $res_block3 = mysqli_query($connection,$sql_block3);
+        
+        $sql_block2 = "DELETE FROM `transaction_details` WHERE `user_id_donor`='{$_POST['block'][$i]}' AND `have_paid`='0'";
         $res_block2=mysqli_query($connection,$sql_block2);
 
         $sql_block3 = "UPDATE `transaction_details` SET `user_id_receiver`=NULL WHERE `user_id_receiver`='{$_POST['block'][$i]}' AND `have_paid`='0'";
         $res_block3 = mysqli_query($connection,$sql_block3);
+
+
+
         }
 
         

@@ -2,7 +2,7 @@
 	
 	require './require/connection.inc.php';
 
-	$TIME_INTERVAL = 'PT1H';
+	$TIME_INTERVAL = 'PT14H';
 
 
 	$sql_timer = "SELECT a.time_stamp AS `time_stamp`, u.user_id AS `user_id` FROM `transaction_details` a JOIN `user` u ON a.user_id_donor = u.user_id AND a.have_paid = '0' AND a.user_id_receiver IS NOT NULL";
@@ -33,7 +33,6 @@
 			        $sql_block3 = "UPDATE `transaction_details` SET `user_id_receiver`=NULL WHERE `user_id_receiver`='{$row['user_id']}' AND `have_paid`='0'";
 			        $res_block3 = mysqli_query($connection,$sql_block3);
 
-			        echo $sql_block3;
 
 					
 				
