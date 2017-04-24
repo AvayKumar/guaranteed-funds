@@ -86,7 +86,7 @@
 		 * Geat time left to pay amount, and user details of receiver
 		 */
 
-		$sql_timer = "SELECT a.time_stamp, a.amount, u.user_name, u.user_email, u.user_phone FROM `transaction_details` a JOIN `user` u ON a.user_id_receiver = u.user_id WHERE a.user_id_donor = '{$_SESSION['u_id']}' AND a.have_paid = '0' AND a.user_id_receiver IS NOT NULL";
+		$sql_timer = "SELECT a.time_stamp, a.amount, u.user_name, u.user_email, u.user_phone,a.file_name FROM `transaction_details` a JOIN `user` u ON a.user_id_receiver = u.user_id WHERE a.user_id_donor = '{$_SESSION['u_id']}' AND a.have_paid = '0' AND a.user_id_receiver IS NOT NULL";
 		// {$_SESSION['u_id']}
 
 		$now = date_create();
@@ -124,7 +124,8 @@
 				$response['don'][$i]['amount'] = $row['amount'];
 				$response['don'][$i]['name'] = $row['user_name'];
 				$response['don'][$i]['email'] = $row['user_email'];
-				$response['don'][$i++]['phone'] = $row['user_phone'];
+				$response['don'][$i]['phone'] = $row['user_phone'];
+				$response['don'][$i++]['fileName'] = $row['file_name'] ? true: false;
 			}
 		}
 

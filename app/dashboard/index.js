@@ -88,31 +88,33 @@
                                                     <h4><span class="label label-warning">Pay Before</span></h4>\
                                                     <div id="timer' + i + '" style="margin-bottom: 10px;"></div>\
                                                     <div class="panel-footer" style="background-color: #FFFFFF">\
-                                                        <button class="btn btn-submit btn-block upload"  role="button" data-amount="' + data.don[i].amount + '">Upload <span class="glyphicon glyphicon-upload" aria-hidden="true"></span></button>\
+                                                        <button class="btn btn-submit btn-block upload' + ( data.don[i].fileName ? ' disabled btn-warning' : '') + '"  role="button" data-amount="' + data.don[i].amount + '">Upload <span class="glyphicon glyphicon-upload" aria-hidden="true"></span></button>\
                                                     </div>\
                                                 </div>\
                                             </div>\
                                         </div>'));
                                 var now = new Date();
                                 console.log(now.toString());
-                                now.setSeconds(now.getSeconds() + parseInt(data.don[i].time_left.s) );
-                                now.setMinutes(now.getMinutes() + parseInt(data.don[i].time_left.m) );
-                                now.setHours(now.getHours() + parseInt(data.don[i].time_left.h) );
-                                now.setDate(now.getDate() + parseInt(data.don[i].time_left.d));
-                                
-                                console.log(now.toString());
+                                if( data.don[i].time_left ) {
+                                    now.setSeconds(now.getSeconds() + parseInt(data.don[i].time_left.s) );
+                                    now.setMinutes(now.getMinutes() + parseInt(data.don[i].time_left.m) );
+                                    now.setHours(now.getHours() + parseInt(data.don[i].time_left.h) );
+                                    now.setDate(now.getDate() + parseInt(data.don[i].time_left.d));
+                                    
+                                    console.log(now.toString());
 
-                                var month = now.getMonth() < 10 ?'0' + (now.getMonth()+1): (now.getMonth()+1);
-                                var date = now.getDate() < 10 ?'0' + now.getDate() : now.getDate();
-                                var hrs = now.getHours() < 10 ?'0' + now.getHours() : now.getHours();
-                                var mins = now.getMinutes() < 10 ?'0' + now.getMinutes() : now.getMinutes();
-                                var sec = now.getSeconds() < 10 ?'0' + now.getSeconds() : now.getSeconds();
+                                    var month = now.getMonth() < 10 ?'0' + (now.getMonth()+1): (now.getMonth()+1);
+                                    var date = now.getDate() < 10 ?'0' + now.getDate() : now.getDate();
+                                    var hrs = now.getHours() < 10 ?'0' + now.getHours() : now.getHours();
+                                    var mins = now.getMinutes() < 10 ?'0' + now.getMinutes() : now.getMinutes();
+                                    var sec = now.getSeconds() < 10 ?'0' + now.getSeconds() : now.getSeconds();
 
-                                console.log(month + '/' + date + '/' + now.getFullYear() + ' ' + hrs + ':' + mins + ':' + sec);
-                                $('#timer' + i).flipcountdown({
-                                    size:'sm',
-                                    beforeDateTime: month + '/' + date + '/' + now.getFullYear() + ' ' + hrs + ':' + mins + ':' + sec
-                                });
+                                    console.log(month + '/' + date + '/' + now.getFullYear() + ' ' + hrs + ':' + mins + ':' + sec);
+                                    $('#timer' + i).flipcountdown({
+                                        size:'sm',
+                                        beforeDateTime: month + '/' + date + '/' + now.getFullYear() + ' ' + hrs + ':' + mins + ':' + sec
+                                    });
+                                }
                             }
                             $('.receivers').fadeIn();
                         }
@@ -172,10 +174,12 @@
                         
                         $('#data-loader').fadeOut();
                         $('button.upload').click(function(){
-                            $('#fileUpload form')
-                            .remove('#fileUpload form input[name="package"]')
-                            .append('<input type="hidden" value="' + $(this).attr('data-amount') + '" name="package">');
-                            $('#fileUpload').modal({show: true}); 
+                            if( !$(this).hasClass('disabled') ) {
+                                $('#fileUpload form')
+                                .remove('#fileUpload form input[name="package"]')
+                                .append('<input type="hidden" value="' + $(this).attr('data-amount') + '" name="package">');
+                                $('#fileUpload').modal({show: true});
+                            }
                         });
 
                         $('button.cnfrm').click(function(){
@@ -187,7 +191,7 @@
                                         console.log(data);
                                         if(status == 'success' && data.success){
                                             console.log('Exe');
-                                            $(_this).addClass('disabled btn-success')
+                                            $(_this).addClass('disabled btn-info')
                                                    .removeClass('btn-primary').text('Confirmed').unbind();
                                         }
                                 }, 'json');
