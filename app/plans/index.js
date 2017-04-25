@@ -1,5 +1,9 @@
-﻿define(['durandal/app', 'durandal/system', 'plugins/router', 'settings'], function (app, system, router, settings) {
+﻿define(['durandal/app', 'knockout', 'durandal/system', 'plugins/router', 'settings'], function (app, ko, system, router, settings) {
+    
+    var plan2 = ko.observable('');
+
     return {
+        plan : plan2,
     	activate : function () {
 
             $.post(settings.BASE_URL + 'back-end/plans.php', function(data, status) {
@@ -12,7 +16,13 @@
 
     	},
 
-    	selectPackage : function(amount) {			
+    	selectPackage : function(amount) {		
+            plan2('₦ '+amount);	
+            $('#confirmPlan').modal({show: true});
+            
+            $('button.confirm').click(function(){                                
+                $('#confirmPlan').modal('toggle');
+
             $.post(settings.BASE_URL + 'back-end/plans.php', {'package' : amount} ,function(data, status) {
              	if( status == 'success' ) {
                     console.log(data);
@@ -36,6 +46,8 @@
                         $('html,body').animate({scrollTop:0},'fast');
                  }
             },'json');
+
+        });
 
     	}
     }
