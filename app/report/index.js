@@ -40,6 +40,7 @@
                     console.log(data);
                     if( data.status ) {
                         $(formElement)[0].reset();
+                        $('#message').empty();
                         $('#support').slideDown();
                         setTimeout(function(){
                             $('#support').slideUp();
@@ -53,6 +54,8 @@
                         <span aria-hidden="true">&times;</span></button>\
                         <strong>Error! </strong>' + error +'</div>');
              }
+
+            $('html,body').animate({scrollTop:0},'fast'); 
          
         }
     };

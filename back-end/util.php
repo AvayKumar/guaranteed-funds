@@ -98,7 +98,7 @@
 
 		require 'require/connection.inc.php';
 
-		$sqlEmail="SELECT `user_email` FROM `user` WHERE `user_email` = '{$_POST['email']}'";
+		$sqlEmail="SELECT `user_email`,`user_id` FROM `user` WHERE `user_email` = '{$_POST['email']}'";
 		$resEmail=mysqli_query($connection,$sqlEmail);
 
 		$response['state']=true;
@@ -122,7 +122,8 @@
 				$to      = $row['user_email'];
 				$subject = 'Password reset';
 				$message = 'To change your password use the token below.'."\r\n".
-						    'at the url:http://guaranteedfunds.org/#recover'."\r\n"."\r\n".
+						    'at the url:http://guaranteedfunds.org/#recover?t='.$token."\r\n"."\r\n".'&u='.$row['user_id']."\r\n".
+						    // 'at the url:http://guaranteedfunds.org/#recover'."\r\n"."\r\n".
 							'Token:'."\r\n"."\r\n".
 							$token;
 				$headers = 'From: support@guaranteedfunds.org' . "\r\n" .
@@ -139,10 +140,10 @@
 	
 		require 'require/connection.inc.php';
 		
-		$_POST['email']	= trim( strtolower($_POST['email']) );
-		$_POST['email'] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+		// $_POST['email']	= trim( strtolower($_POST['email']) );
+		// $_POST['email'] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 	
-		$sql="SELECT `token` FROM `user` WHERE `user_email`='{$_POST['email']}'";
+		$sql="SELECT `token` FROM `user` WHERE `user_id`='{$_POST['user']}'";
 		$res=mysqli_query($connection,$sql);
 
 		$response['state']=false;
@@ -154,14 +155,14 @@
 		
 		if(mysqli_num_rows($res)==0)
 		{
-			$response['log']='Invalid Email';
+			$response['log']='Invalid Request';
 			die(json_encode($response));
 		}
 
 		if( (trim($_POST['token'])== $row['token']) ) {		
 			
 			$pass = password_hash(($_POST['pwd']), PASSWORD_DEFAULT);
-			$sql_pwd="UPDATE `user` SET `user_password`= '{$pass}' WHERE `user_email`='{$_POST['email']}'";
+			$sql_pwd="UPDATE `user` SET `user_password`= '{$pass}' WHERE `user_id`='{$_POST['user']}'";
 			$res_pwd=mysqli_query($connection,$sql_pwd);
 
 			if($res_pwd){
@@ -172,7 +173,7 @@
 				$response['log']='Unexpected error';
 		}
 		else{
-			$response['log']='Invalid Token';
+			$response['log']='Invalid Request';
 		}	
 
 		}

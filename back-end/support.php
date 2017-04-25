@@ -5,7 +5,7 @@
 	$_POST['email'] 	= filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 	$_POST['subject']	= trim( strtolower($_POST['subject']) );
 	$_POST['message']	= trim( strtolower($_POST['message']) );
-
+	
 
 	$to = 'guaranteedfundsorg@gmail.com';
 	$subject = $_POST['subject'];

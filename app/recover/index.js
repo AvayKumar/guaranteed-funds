@@ -1,10 +1,20 @@
 define(['durandal/app', 'durandal/system', 'plugins/router','knockout', 'settings'], function (app, system, router, ko, settings) {
     
     var formData = ko.observable();
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    };
     
     return {
-        token : ko.observable(''),
-        email : ko.observable(''),
+        // token : ko.observable(''),
+        // email : ko.observable(''),
         pwd : ko.observable(''),
         cpwd : ko.observable(''),
     
@@ -25,7 +35,14 @@ define(['durandal/app', 'durandal/system', 'plugins/router','knockout', 'setting
         newPassword : function(formElement)
         {
             var postData = $(formElement).serializeArray();          
-             console.log( postData );  
+             console.log( postData );
+
+             var token=getParameterByName('t');
+             var user=getParameterByName('u');
+             
+             postData.push({name:'token',value:token});  
+             postData.push({name:'user',value:user});  
+             
              if(this.pwd()!=this.cpwd()){
                     
                     $('#sectionA #message').empty().html('<div class="alert alert-danger alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\

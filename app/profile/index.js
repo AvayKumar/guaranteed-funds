@@ -75,6 +75,7 @@ define(['durandal/app', 'durandal/system', 'plugins/router','knockout', 'setting
                         <span aria-hidden="true">&times;</span></button>\
                         <strong>Error! </strong>' +'Password mismatch'  +'</div>');
             }
+            $('html,body').animate({scrollTop:0},'fast');  
         
         },
 
