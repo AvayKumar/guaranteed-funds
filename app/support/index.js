@@ -14,6 +14,8 @@
                         setTimeout(function(){
                             $('#support').slideUp();
                         }, 10000);
+
+                    $('html,body').animate({scrollTop:0},'fast');
                     }
                 }
             },'json');

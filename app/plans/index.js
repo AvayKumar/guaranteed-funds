@@ -22,6 +22,8 @@
                  else {
                         $('#plan_message')
                             .empty().text(data.message).slideDown();
+                        
+                        $('html,body').animate({scrollTop:0},'fast');
                  }
             },'json');
 

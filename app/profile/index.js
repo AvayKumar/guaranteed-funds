@@ -111,6 +111,8 @@ define(['durandal/app', 'durandal/system', 'plugins/router','knockout', 'setting
 
                  },'json');
                 }
+
+              $('html,body').animate({scrollTop:0},'fast');  
             // console.log(1);
         }
     };
