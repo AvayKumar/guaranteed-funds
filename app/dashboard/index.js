@@ -64,6 +64,7 @@
 
                         if( (data.don).length > 0 ) {
                             for(var i=0; i<(data.don).length; i++) {
+                                var buttonMessage =  data.don[i].fileName ?'Awaiting Confirmation':'Upload';
                                 $('#receivers')
                                 .append($('<div class="col-xs-12 col-sm-6 col-md-4">\
                                             <div class="panel panel-success timer-panel">\
@@ -83,12 +84,24 @@
                                                           <td><strong>Phone</strong></td>\
                                                           <td>' + data.don[i].phone + '</td>\
                                                         </tr>\
+                                                        <tr>\
+                                                          <td><strong>Bank</strong></td>\
+                                                          <td>' + data.don[i].bank + '</td>\
+                                                        </tr>\
+                                                        <tr>\
+                                                          <td><strong>AccName</strong></td>\
+                                                          <td>' + data.don[i].accnt_name + '</td>\
+                                                        </tr>\
+                                                        <tr>\
+                                                          <td><strong>AccNumber</strong></td>\
+                                                          <td>' + data.don[i].accnt_number + '</td>\
+                                                        </tr>\
                                                       </tbody>\
                                                     </table>\
                                                     <h4><span class="label label-warning">Pay Before</span></h4>\
                                                     <div id="timer' + i + '" style="margin-bottom: 10px;"></div>\
                                                     <div class="panel-footer" style="background-color: #FFFFFF">\
-                                                        <button class="btn btn-submit btn-block upload' + ( data.don[i].fileName ? ' disabled btn-warning' : '') + '"  role="button" data-amount="' + data.don[i].amount + '">Upload <span class="glyphicon glyphicon-upload" aria-hidden="true"></span></button>\
+                                                        <button class="btn btn-submit btn-block upload' + ( data.don[i].fileName ? ' disabled btn-warning' : '') + '"  role="button" data-amount="' + data.don[i].amount + '">'+buttonMessage+' <span class="glyphicon glyphicon-upload" aria-hidden="true"></span></button>\
                                                     </div>\
                                                 </div>\
                                             </div>\

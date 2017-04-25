@@ -49,6 +49,7 @@ if(isset($_POST['package']))
 		$response['message'] = 'Kindly complete existing '.$_POST['package'].' package loop before selecting another package.';
 	else{
 		$response['route_to_dashboard'] = 'true';
+		$response['message'] = 'Congrats! Plan of '.$_POST['package'].' selected successfully';
 		$time_stamp = date('Y-m-d H:i:s');
 		$sql_insert_donation = "INSERT INTO transaction_details (`user_id_donor`, `amount`, `time_stamp`) VALUES ('{$_SESSION['u_id']}','{$_POST['package']}' , '{$time_stamp}')";
 		$result_insert_donation = mysqli_query($connection,$sql_insert_donation);

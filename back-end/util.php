@@ -117,15 +117,15 @@
 				$sql_token="UPDATE `user` SET `token`='{$token}' WHERE `user_email`='{$row['user_email']}'";
 				$res_token=mysqli_query($connection,$sql_token);
 
-				$response['user_verify']='Mail Sent Succesfully';
+				$response['user_verify']='Mail Sent Succesfully.Check your mail.';
 			
 				$to      = $row['user_email'];
 				$subject = 'Password reset';
-				$message = 'To change your password use the token below.'."\r\n".
-						    'at the url:http://guaranteedfunds.org/#recover?t='.$token."\r\n"."\r\n".'&u='.$row['user_id']."\r\n".
+				$message = 'To change your password click the link below or copy it and open 		 in browser.'."\r\n".
+						    'http://guaranteedfunds.org/#recover?t='.$token.'&u='.$row['user_id']."\r\n";
 						    // 'at the url:http://guaranteedfunds.org/#recover'."\r\n"."\r\n".
-							'Token:'."\r\n"."\r\n".
-							$token;
+							// 'Token:'."\r\n"."\r\n".
+							// $token;
 				$headers = 'From: support@guaranteedfunds.org' . "\r\n" .
 				    'X-Mailer: PHP/' . phpversion();
 

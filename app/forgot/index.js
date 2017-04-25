@@ -35,7 +35,7 @@ define(['durandal/app', 'durandal/system', 'plugins/router','knockout', 'setting
                             ' + data.user_verify  +'</div>');
                         	
                         	setTimeout(function(){
-                                router.navigate('#recover');
+                                router.navigate('#home');
                             },1500);
                             
                         	

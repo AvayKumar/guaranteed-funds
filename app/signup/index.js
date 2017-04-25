@@ -52,8 +52,18 @@
                  	  console.log(status);
                     if(data.state){
                         settings.loggedIn(true);
-                        settings.user_name(data.u_name);                    
-                        router.navigate('plans');
+                        settings.user_name(data.u_name);
+                        
+                        $('#message').empty().html('<div class="alert alert-success alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\
+                            <span aria-hidden="true">&times;</span></button>\
+                            <strong>Congrats! </strong>Signed up successfully</div>');
+                        
+                        $('html,body').animate({scrollTop:0},'fast');
+
+                        setTimeout(function(){
+                                router.navigate('#plans');
+                            },1500);
+                    
                     } else {
                         $('#message').empty().html('<div class="alert alert-danger alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\
                             <span aria-hidden="true">&times;</span></button>\
