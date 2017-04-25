@@ -155,6 +155,18 @@
                                                           <td><strong>Phone</strong></td>\
                                                           <td>' + data.rec[i].phone + '</td>\
                                                         </tr>\
+                                                        <tr>\
+                                                          <td><strong>Bank</strong></td>\
+                                                          <td>' + data.rec[i].bank + '</td>\
+                                                        </tr>\
+                                                        <tr>\
+                                                          <td><strong>AccName</strong></td>\
+                                                          <td>' + data.rec[i].accnt_name + '</td>\
+                                                        </tr>\
+                                                        <tr>\
+                                                          <td><strong>AccNumber</strong></td>\
+                                                          <td>' + data.rec[i].accnt_number + '</td>\
+                                                        </tr>\
                                                       </tbody>\
                                                     </table>\
                                                     <div id="timer' + i + '" style="margin-bottom: 10px;"></div>\

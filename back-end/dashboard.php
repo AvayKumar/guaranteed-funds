@@ -136,7 +136,7 @@
 		/**
 		 * Get details of all the matched user for current user
 		 */
-		$sql_receiver = "SELECT `amount`, `user_name`, `user_email`, `user_phone`, `file_name`, `transaction_id` FROM `user` u JOIN `transaction_details`a ON a.user_id_donor = u.user_id WHERE a.have_paid = '0' AND `user_id_receiver` = '{$_SESSION['u_id']}'";
+		$sql_receiver = "SELECT `amount`, `user_name`, `user_email`, `user_phone`, `file_name`, `transaction_id`, b.bank_detail_name, b.bank_detail_accnt_name, b.bank_detail_accnt_number FROM `user` u JOIN `transaction_details` a ON a.user_id_donor = u.user_id JOIN `bank_details` b ON u.user_id = b.user_id WHERE a.have_paid = '0' AND `user_id_receiver` = '{$_SESSION['u_id']}'";
 
 		
 		$response['rec'] = array();
@@ -148,6 +148,9 @@
 				$response['rec'][$i]['name'] = $row['user_name'];
 				$response['rec'][$i]['email'] = $row['user_email'];
 				$response['rec'][$i]['phone'] = $row['user_phone'];
+				$response['rec'][$i]['bank'] = $row['bank_detail_name'];
+				$response['rec'][$i]['accnt_name'] = $row['bank_detail_accnt_name'];
+				$response['rec'][$i]['accnt_number'] = $row['bank_detail_accnt_number'];
 				$response['rec'][$i]['tid'] = $row['transaction_id'];
 				$response['rec'][$i++]['fileName'] = $row['file_name'] ? true: false;
 			}
