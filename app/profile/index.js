@@ -21,7 +21,7 @@ define(['durandal/app', 'durandal/system', 'plugins/router','knockout', 'setting
         bank_name : bank_name2,
         
         activate : function(){
-            //console.log('?');
+            
             $.post(settings.BASE_URL + 'back-end/util.php?func_name=authStatus2', 
                 function(data, status) {
 
@@ -29,18 +29,16 @@ define(['durandal/app', 'durandal/system', 'plugins/router','knockout', 'setting
 
                 if( status == 'success' && data.success ) { 
                     if( data.auth ) {  
-                        formData = data;
-                        
                         name2(data.user_name);
                         contact2(data.phone);
                         account_name2(data.account_name);
                         account_number2(data.account_number);
                         email2(data.email);
                         bank_name2(data.bank_name);
-
-                        settings.loggedIn(true);
                     } else {
-                        router.navigate('login');
+                        router.reset()
+                          .deactivate();                    
+                        app.setRoot('logged-out');
                     }
                 }
             },'json');
@@ -55,21 +53,18 @@ define(['durandal/app', 'durandal/system', 'plugins/router','knockout', 'setting
                     function(data, status){
                  	  console.log(data);
                  	  console.log(status);
-                      if(data.state == "false"){
+                    if(data.state == "false"){
                         $('#sectionB #message').empty().html('<div class="alert alert-danger alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\
                         <span aria-hidden="true">&times;</span></button>\
                         <strong>Error ! </strong>' + data.log +'</div>');
-                     }
-                     else
-                     {
-                       $('#sectionB #message').empty().html('<div class="alert alert-success alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\
+                    } else {
+                        $('#sectionB #message').empty().html('<div class="alert alert-success alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\
                         <span aria-hidden="true">&times;</span></button>\
                         <strong>Cool ! </strong>' + data.log +'</div>'); 
-                     }
+                    }
                      
                 },'json');
-            }
-            else{
+            } else {
                 console.log('password_mismatch');
                 $('#sectionB #message').empty().html('<div class="alert alert-danger alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\
                         <span aria-hidden="true">&times;</span></button>\
@@ -79,8 +74,7 @@ define(['durandal/app', 'durandal/system', 'plugins/router','knockout', 'setting
         
         },
 
-        editDetails : function(formElement)
-        {
+        editDetails : function(formElement) {
             var postData = $(formElement).serializeArray();          
              //console.log( postData );  
              if(postData[2].value.length != 11)

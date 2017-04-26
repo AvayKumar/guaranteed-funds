@@ -9,24 +9,15 @@
         return true;    
     };
     return {
-
-        activate : function() {
-        
+        activate: function(){
             $.post(settings.BASE_URL + 'back-end/util.php?func_name=authStatus', 
                 function(data, status) {
-
-                console.log(data);
-
-                if( status == 'success' && data.success ) { 
-                    if( data.auth ) {  
-                        settings.loggedIn(true);
-                    } else {
-                        router.navigate('login');
-                    }
+                if( status == 'success' && !data.auth ) { 
+                    router.reset()
+                          .deactivate();                    
+                    app.setRoot('logged-out');
                 }
-
-            },'json');
-            
+            },'json');           
         },
         sendMail : function(formElement) {
              var postData = $(formElement).serializeArray();

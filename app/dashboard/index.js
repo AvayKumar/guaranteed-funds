@@ -13,27 +13,19 @@
     	amount_received : amount,
     	bonus : referral_bonus,
         canSubmit : can_submit,
-    	activate : function() {
-
+        
+        activate: function(){
             $.post(settings.BASE_URL + 'back-end/util.php?func_name=authStatus', 
                 function(data, status) {
-
-                console.log(data);
-
-                if( status == 'success' && data.success ) { 
-                    if( data.auth ) {  
-                        settings.loggedIn(true);
-                    } else {
-                        router.navigate('login');
-                    }
+                if( status == 'success' && !data.auth ) { 
+                    router.reset()
+                          .deactivate();                    
+                    app.setRoot('logged-out');
                 }
-
-            },'json');
-            
+            },'json');           
         },
 		attached : function() {
 
-            $('#data-loader').show();
             $(function(){
 
                 $.post(settings.BASE_URL + 'back-end/dashboard.php', function(data, status) {
@@ -41,15 +33,17 @@
                     console.log(data);
 
                     if(status == 'success' && data.auth ) {
+
+                        if(data.route_to_package || !data.loop_exist){
+                            router.navigate('plans');
+                            return;
+                        }
+
                         payment_received(data.pay_received);
                         payment_made(data.pay_made);
                         amount(data.amount_recv);
                         referral_bonus(data.bonus);
 
-                        if(data.route_to_package){
-                            router.navigate('plans');
-                            return;
-                        }
 
                         for(var j=0; j<data.numberPost; j++){
 
@@ -58,9 +52,6 @@
                         <strong>' + data.content[j] +'</strong></div>'));                    
 
                         }    
-
-
-
 
                         if( (data.don).length > 0 ) {
                             for(var i=0; i<(data.don).length; i++) {

@@ -4,18 +4,16 @@
 
     return {
         plan : plan2,
-    	activate : function () {
-
-            $.post(settings.BASE_URL + 'back-end/plans.php', function(data, status) {
-             	if( status == 'success' ) {
-                    console.log(data);
-                    if(data.status == 'false')
-                        router.navigate('login');
+        activate: function(){
+            $.post(settings.BASE_URL + 'back-end/util.php?func_name=authStatus', 
+                function(data, status) {
+                if( status == 'success' && !data.auth ) { 
+                    router.reset()
+                          .deactivate();                    
+                    app.setRoot('logged-out');
                 }
-            },'json');
-
-    	},
-
+            },'json');           
+        },
     	selectPackage : function(amount) {		
             plan2('₦ '+amount);	
             $('#confirmPlan').modal({show: true});

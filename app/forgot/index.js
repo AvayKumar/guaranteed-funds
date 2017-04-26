@@ -5,22 +5,17 @@ define(['durandal/app', 'durandal/system', 'plugins/router','knockout', 'setting
 
     return {
         email : email2,
-       
         activate: function(){
             $.post(settings.BASE_URL + 'back-end/util.php?func_name=authStatus', 
                 function(data, status) {
-
                 if( status == 'success' && data.auth ) { 
-                    
-                router.navigate('#dashboard');
-                
+                    router.reset()
+                          .deactivate();                    
+                    app.setRoot('logged-in');
                 }
-
-            },'json');            
+            },'json');           
         },
-
-        sendEmail : function(formElement)
-        {
+        sendEmail : function(formElement) {
             var postData = $(formElement).serializeArray();          
              
                  $.post(settings.BASE_URL + 'back-end/util.php?func_name=sendEmail', postData,

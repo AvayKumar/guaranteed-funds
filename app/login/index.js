@@ -1,16 +1,15 @@
 ﻿define(['durandal/app', 'durandal/system', 'plugins/router', 'knockout', 'settings'], function (app, system, router, ko, settings) {
     return {
 
-        activate: function(){
+        activate: function() {
             $.post(settings.BASE_URL + 'back-end/util.php?func_name=authStatus', 
                 function(data, status) {
-
                 if( status == 'success' && data.auth ) { 
-                    
-                router.navigate('#dashboard');
-                
+                    settings.user_name(data.user_name);
+                    router.reset();
+                    router.deactivate();                    
+                    app.setRoot('logged-in');
                 }   
-                
             },'json');           
         },
 
@@ -32,18 +31,13 @@
                         <span aria-hidden="true">&times;</span></button>\
                         <strong>Error! </strong>' + data.user_verify +'</div>'); 
                     
-                         $('html,body').animate({scrollTop:0},'fast');                   
-                    
-                    } else if( data.status ) {
+                        $('html,body').animate({scrollTop:0},'fast');
                         
-                        settings.loggedIn(true);
+                    } else if( data.status ) {
                         settings.user_name(data.u_name);
-                        router.mapUnknownRoutes('dashboard/index', 'not-found');
-
-                        if(data.loop_exist)
-                            router.navigate('dashboard');
-                        else    
-                            router.navigate('plans');
+                        router.reset();
+                        router.deactivate();                    
+                        app.setRoot('logged-in');
                     }
                 }
             },'json');

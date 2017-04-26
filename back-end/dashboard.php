@@ -22,6 +22,14 @@
 
 	require './require/connection.inc.php';
 	
+ 	$sql_plan_check = "SELECT * FROM transaction_details WHERE user_id_donor = '{$_SESSION['u_id']}' AND received_count < '2'";
+ 	
+ 	$result_plan_check = mysqli_query($connection, $sql_plan_check);
+	 	
+ 	if(mysqli_num_rows($result_plan_check))
+ 		$response['loop_exist'] = true;
+ 	else
+ 		$response['loop_exist'] = false; 	  	
 	
 	$sql_post="SELECT `content` FROM `post`";
 	$res_post=mysqli_query($connection,$sql_post);
