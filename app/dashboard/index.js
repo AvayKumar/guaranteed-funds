@@ -102,6 +102,7 @@
                                                     <div id="timer' + i + '" style="margin-bottom: 10px;"></div>\
                                                     <div class="panel-footer" style="background-color: #FFFFFF">\
                                                         <button class="btn btn-submit btn-block upload' + ( data.don[i].fileName ? ' disabled btn-warning' : '') + '"  role="button" data-amount="' + data.don[i].amount + '">'+buttonMessage+' <span class="glyphicon glyphicon-upload" aria-hidden="true"></span></button>\
+                                                        <button class="btn btn-cancel btn-block cancel' + ( data.don[i].fileName ? ' disabled btn-warning' : '') + '"  role="button" data-tid="' + data.don[i].tid + '">'+'cancel'+' <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></button>\
                                                     </div>\
                                                 </div>\
                                             </div>\
@@ -204,12 +205,26 @@
                                 .remove('#fileUpload form input[name="package"]')
                                 .append('<input type="hidden" value="' + $(this).attr('data-amount') + '" name="package">');
                                 $('#fileUpload').modal({show: true});
+
                             }
+                        });
+
+                        if( $('button.upload').hasClass('disabled') ){
+                            $('button.cancel').remove();
+                        }
+
+                        $('button.cancel').click(function(){
+                            console.log($(this).attr('data-tid'));
+                            var that=this;
+                            $('#cancelPay form')
+                                .remove('#cancelPay form input[name="tid"]')
+                                .append('<input type="hidden" value="' + $(that).attr('data-tid') + '" name="tid">');
+                            $('#cancelPay').modal({show: true});    
                         });
 
                         $('button.cnfrm').click(function(){
                             var _this = this;
-                            console.log();
+                            // console.log();
                             if(!$(this).hasClass('disabled')) {
                                 $.post(settings.BASE_URL + 'back-end/util.php?func_name=confirmPayment', {'tid':$(this).attr('data-tid'), 'amount':$(this).attr('data-amount')}, 
                                     function(data, status) {
