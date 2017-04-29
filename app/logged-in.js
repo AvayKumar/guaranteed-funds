@@ -2,7 +2,6 @@
 
     return {
         router: router,
-        user : ko.observable(settings.user_name()),
         signOut: function() {
             $.post(settings.BASE_URL + 'back-end/util.php?func_name=signOut', 
                 function(data, status) {
@@ -37,6 +36,7 @@
             if(settings.routeTo() != '#login') {
                 router.navigate(settings.routeTo());
             }
+            $('#user-name').text(settings.user_name());
         }
     };
 });
