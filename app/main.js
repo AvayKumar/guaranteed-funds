@@ -37,6 +37,6 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'bootstrap'],
 
     app.start().then(function () {
         viewLocator.useConvention();
-        app.setRoot('shell');
+        app.setRoot('logged-out');
     });
 });

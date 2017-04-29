@@ -1,0 +1,47 @@
+﻿<div>
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-bar">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#home">
+                    <span>Guaranteed Funds</span>
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse"  id="nav-bar">
+                <ul class="nav navbar-nav navbar-right">
+
+                    <!--ko foreach: router.navigationModel -->
+                    <li data-bind="css: { active: isActive }">
+                        <a data-bind="attr: { href: hash }, text: title"></a>
+                    </li>
+                    <!--/ko-->
+
+                    <li class="loader hidden-xs" data-bind="css: { active: router.isNavigating }">
+                        <i class="fa fa-spinner fa-spin fa-2x"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div style="min-height: 100%;">
+        <div data-bind="router: { transition:'entrance' }"></div>
+    </div>
+    <!-- <div id="data-loader" >
+        <span></span>
+    </div> -->
+        <!--Footer-->
+    <footer id="footer" class="footer">
+      <div class="container text-center">
+        ©2017 Guaranteed Funds. All rights reserved.
+        <p>E-mail: support@guaranteedfunds.org</p>
+      </div>
+    </footer>
+    <!--/ Footer-->
+</div>

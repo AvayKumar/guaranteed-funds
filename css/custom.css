@@ -203,7 +203,7 @@ button.accordion:last-of-type {
 }
 
 /* Make the page hieght 100% */
-html, body, div[data-view='shell'] {
+html, body, div[data-view='logged-in'], div[data-view='logged-out'] {
   height: 100%;
 }
 

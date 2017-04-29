@@ -1,29 +1,20 @@
 define(['durandal/app', 'knockout','durandal/system', 'plugins/router', 'settings'], function (app, ko, system, router, settings) {
 
-	return{
-		activate: function(){
-			$.post(settings.BASE_URL + 'back-end/transactions.php', 
-                function(data, status) {
-
-                console.log(data);
-                // console.log(data.transaction[0].amount);
-
-                if( status == 'success' && data.success ) { 
-                    if( data.auth )                          
-                        settings.loggedIn(true);
-                    else {
-                        router.navigate('login');
-                    }
-                }
-            },'json');
-                  
-		},
-
+	return {
+    activate: function(){
+        $.post(settings.BASE_URL + 'back-end/util.php?func_name=authStatus', 
+            function(data, status) {
+            if( status == 'success' && !data.auth ) { 
+                router.reset()
+                      .deactivate();                    
+                app.setRoot('logged-out');
+            }
+        },'json');           
+    },
 		attached: function(){
 			$.post(settings.BASE_URL + 'back-end/transactions.php', function(data, status) {
 
                 console.log(data);
-               
 
                 if( status == 'success' && data.success ) { 
                         if( (data.tidD).length > 0 ) {

@@ -21,19 +21,16 @@ define(['durandal/app', 'durandal/system', 'plugins/router','knockout', 'setting
         activate: function(){
             $.post(settings.BASE_URL + 'back-end/util.php?func_name=authStatus', 
                 function(data, status) {
-
                 if( status == 'success' && data.auth ) { 
-                    
-                router.navigate('#dashboard');
-                
-                }
-
-            },'json');                        
+                    settings.user_name(data.user_name);
+                    router.reset();
+                    router.deactivate();                    
+                    app.setRoot('logged-in');
+                }   
+            },'json');           
         },
 
-
-        newPassword : function(formElement)
-        {
+        newPassword : function(formElement) {
             var postData = $(formElement).serializeArray();          
              console.log( postData );
 
