@@ -17,16 +17,19 @@
         },
 
         activate: function () {
+            
+            var urlRoute = window.location.hash;
+            settings.routeTo(urlRoute);
 
             router.map([
-                { route: ['', 'home'],       moduleId: 'home/index',         title: 'Home',       nav: false},
+                { route: 'home',             moduleId: 'home/index',         title: 'Home',       nav: false},
                 { route: 'signup',           moduleId: 'signup/index',       title: 'Join Now',   nav: true },
                 { route: 'login',            moduleId: 'login/index',        title: 'Sign In',    nav: true },
                 { route: 'forgot',           moduleId: 'forgot/index',       title: 'Forgot',     nav: false},
                 { route: 'recover',          moduleId: 'recover/index',      title: 'Recover',    nav: false},                
                 { route: 'support',          moduleId: 'support/index',      title: 'Support',    nav: false}
             ]).buildNavigationModel()
-              .mapUnknownRoutes('home/index', 'not-found')
+              .mapUnknownRoutes('home/index', 'home')
               .activate();
 
             return router;

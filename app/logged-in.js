@@ -21,17 +21,22 @@
         activate: function () {
 
             router.map([
-                { route: ['', 'dashboard'],  moduleId: 'dashboard/index',    title: 'Dashboard',    nav: true},
+                { route: 'dashboard',        moduleId: 'dashboard/index',    title: 'Dashboard',    nav: true},
                 { route: 'transactions',     moduleId: 'transactions/index', title: 'Transactions', nav: true},
                 { route: 'plans',            moduleId: 'plans/index',        title: 'Plans',        nav: false},
                 { route: 'support',          moduleId: 'support/index',      title: 'Support',      nav: false},
                 { route: 'report',           moduleId: 'report/index',       title: 'Report',       nav: true},
                 { route: 'profile',          moduleId: 'profile/index',      title: 'profile',      nav: false }
             ]).buildNavigationModel()
-              .mapUnknownRoutes('dashboard/index', '')
+              .mapUnknownRoutes('dashboard/index', 'dashboard')
               .activate();
 
             return router;
+        },
+        attached: function() {
+            if(settings.routeTo() != '#login') {
+                router.navigate(settings.routeTo());
+            }
         }
     };
 });
