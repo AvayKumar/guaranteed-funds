@@ -615,6 +615,21 @@ Footer
 	padding-left: 8px;
 }
 
+.btn-cancel:hover, .btn-cancel:focus{
+    background-color: #cf695f;
+    color: #fff;
+}
+.btn-cancel{
+    padding: 14px 12px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    background-color: #cf695f;
+    color: #fff;
+}
+.btn-cancel i{
+    padding-left: 8px;
+}
+
 .btn-sec {
     margin-top: 20px;
 }

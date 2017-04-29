@@ -202,6 +202,28 @@
     }
 
 
+    function cancelPay(){
+    	session_start();
+
+    	if(isset($_SESSION['u_id'])){
+    		
+    		require './require/connection.inc.php';
+    		
+    		$sql_cancelPay = "DELETE FROM `transaction_details` WHERE `transaction_id` = '{$_POST['tid']}'";
+    		$result_cancelPay = mysqli_query($connection, $sql_cancelPay);
+    		
+    		if($result_cancelPay)
+	    		$response['del'] = true;
+    		else
+    			$response['del'] = false;
+    	} 
+    	print_r($sql_cancelPay);
+    	echo json_encode($response);
+    	header('Location: http://'. $_SERVER['SERVER_NAME'] .'/guaranteed-funds/#dashboard');
+
+    }
+
+
 	if( isset($_GET['func_name']) ) {
 		call_user_func($_GET['func_name']);	
 	} else {

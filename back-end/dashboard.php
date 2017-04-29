@@ -94,7 +94,7 @@
 		 * Geat time left to pay amount, and user details of receiver
 		 */
 
-		$sql_timer = "SELECT a.time_stamp, a.amount, u.user_name, u.user_email, u.user_phone,a.file_name, b.bank_detail_name, b.bank_detail_accnt_name, b.bank_detail_accnt_number FROM `transaction_details` a JOIN `user` u ON a.user_id_receiver = u.user_id JOIN `bank_details` b ON u.user_id = b.user_id WHERE a.user_id_donor = '{$_SESSION['u_id']}' AND a.have_paid = '0' AND a.user_id_receiver IS NOT NULL";
+		$sql_timer = "SELECT a.time_stamp, a.upload_time, a.transaction_id, a.amount, u.user_name, u.user_email, u.user_phone,a.file_name, b.bank_detail_name, b.bank_detail_accnt_name, b.bank_detail_accnt_number FROM `transaction_details` a JOIN `user` u ON a.user_id_receiver = u.user_id JOIN `bank_details` b ON u.user_id = b.user_id WHERE a.user_id_donor = '{$_SESSION['u_id']}' AND a.have_paid = '0' AND a.user_id_receiver IS NOT NULL";
 		// {$_SESSION['u_id']}
 
 		$now = date_create();
@@ -113,23 +113,38 @@
 
 				$diff = date_diff($db_date, $now);
 				//$response['don'][$i]['time_left']['d'] = $diff->format('%Y %m %d %h %i %s');
+				
+				if($row['file_name'] != NULL){
+					$db_dateUpload = date_create($row['upload_time']);
+					$db_dateMatch = $db_date;
+					$diffUpload = date_diff( $db_dateMatch, $db_dateUpload);
 
-				if($diff->format('%R') == '-') {
-					$response['don'][$i]['time_left']['h'] = $diff->format('%h');
-					$response['don'][$i]['time_left']['m'] = $diff->format('%i');
-					$response['don'][$i]['time_left']['s'] = $diff->format('%s');
-					$response['don'][$i]['time_left']['d'] = $diff->format('%d');
-				} else {
-					// Block user temporarly
-					$sql_block = "UPDATE `user` SET `user_blocked` = true WHERE `user_id` = {$_SESSION['u_id']}"; 
-					$block_result = mysqli_query($connection, $sql_block);
-					if( $block_result ) {
-						$response['blocked'] = true;
+					$response['don'][$i]['time_upload']['h'] = $diffUpload->format('%h');
+					$response['don'][$i]['time_upload']['m'] = $diffUpload->format('%i');
+					$response['don'][$i]['time_upload']['s'] = $diffUpload->format('%s');
+					$response['don'][$i]['time_upload']['d'] = $diffUpload->format('%d');
+
+				}
+				else{
+
+					if($diff->format('%R') == '-') {
+						$response['don'][$i]['time_left']['h'] = $diff->format('%h');
+						$response['don'][$i]['time_left']['m'] = $diff->format('%i');
+						$response['don'][$i]['time_left']['s'] = $diff->format('%s');
+						$response['don'][$i]['time_left']['d'] = $diff->format('%d');
+					} else {
+						// Block user temporarly
+						$sql_block = "UPDATE `user` SET `user_blocked` = true WHERE `user_id` = {$_SESSION['u_id']}"; 
+						$block_result = mysqli_query($connection, $sql_block);
+						if( $block_result ) {
+							$response['blocked'] = true;
+						}
 					}
 				}
 				//$date_to = date_add($date, $date_diff);
 
 				$response['don'][$i]['amount'] = $row['amount'];
+				$response['don'][$i]['tid'] = $row['transaction_id'];
 				$response['don'][$i]['name'] = $row['user_name'];
 				$response['don'][$i]['email'] = $row['user_email'];
 				$response['don'][$i]['phone'] = $row['user_phone'];
@@ -160,7 +175,39 @@
 				$response['rec'][$i]['accnt_name'] = $row['bank_detail_accnt_name'];
 				$response['rec'][$i]['accnt_number'] = $row['bank_detail_accnt_number'];
 				$response['rec'][$i]['tid'] = $row['transaction_id'];
+				$response['rec'][$i]['fileValue'] = $row['file_name'];
 				$response['rec'][$i++]['fileName'] = $row['file_name'] ? true: false;
+			}
+		}
+
+
+		$sql_plan = "SELECT `time_stamp`, `amount` FROM `transaction_details` WHERE `user_id_donor` = '{$_SESSION['u_id']}' AND `have_paid` = '1' AND `received_count` < '2'";
+		$res_plan = mysqli_query($connection,$sql_plan);
+
+		if($res_plan){
+			$i = 0;
+			$response['plan'] = array();
+			while($row = mysqli_fetch_assoc($res_plan)){
+
+				$db_date = date_create($row['time_stamp']);
+				
+				$db_date->add(new DateInterval($TIME_INTERVAL));
+				
+				$diff = date_diff($db_date, $now);
+				
+				if($diff->format('%R') == '-') {
+					$response['plan'][$i]['time_left']['h'] = $diff->format('%h');
+					$response['plan'][$i]['time_left']['m'] = $diff->format('%i');
+					$response['plan'][$i]['time_left']['s'] = $diff->format('%s');
+					$response['plan'][$i]['time_left']['d'] = $diff->format('%d');
+				} else {
+					$response['plan'][$i]['time_left']['h'] = '0';
+					$response['plan'][$i]['time_left']['m'] = '0';
+					$response['plan'][$i]['time_left']['s'] = '0';
+					$response['plan'][$i]['time_left']['d'] = '0';
+				}
+				$response['plan'][$i]['amount'] = $row['amount'];
+				$i++;
 			}
 		}
 
@@ -179,6 +226,8 @@
 				$response['wait'][$i++]['amount'] = $row['amount'];
 			}
 		}
+
+
 
 	}
 

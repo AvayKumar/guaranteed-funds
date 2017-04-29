@@ -78,7 +78,7 @@
 
 }
 
-.receivers, .donors, .waiting {
+.receivers, .donors, .waiting, .to-match {
   display: none;
 }
 

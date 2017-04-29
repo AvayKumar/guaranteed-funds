@@ -19,7 +19,7 @@
             $('#confirmPlan').modal({show: true});
             
             $('button.confirm').click(function(){                                
-                $('#confirmPlan').modal('toggle');
+                $('#confirmPlan').modal('hide');
 
             $.post(settings.BASE_URL + 'back-end/plans.php', {'package' : amount} ,function(data, status) {
              	if( status == 'success' ) {

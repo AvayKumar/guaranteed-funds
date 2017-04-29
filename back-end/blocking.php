@@ -5,15 +5,15 @@
 	$TIME_INTERVAL = 'PT14H';
 
 
-	$sql_timer = "SELECT a.time_stamp AS `time_stamp`, u.user_id AS `user_id` FROM `transaction_details` a JOIN `user` u ON a.user_id_donor = u.user_id AND a.have_paid = '0' AND a.user_id_receiver IS NOT NULL";
+	$sql_timer = "SELECT a.time_stamp AS `time_stamp`, u.user_id AS `user_id` FROM `transaction_details` a JOIN `user` u ON a.user_id_donor = u.user_id AND a.have_paid = '0' AND a.user_id_receiver IS NOT NULL AND a.file_name IS NULL";
 
 
 	$now = date_create();
 
-	$result_time = mysqli_query($connection, $sql_timer);
+	$result_timer = mysqli_query($connection, $sql_timer);
 
-		if( $result_time ) {
-			while($row = mysqli_fetch_assoc($result_time)) {
+		if( $result_timer ) {
+			while($row = mysqli_fetch_assoc($result_timer)) {
 
 				$db_date = date_create($row['time_stamp']);
 				

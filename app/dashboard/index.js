@@ -45,13 +45,53 @@
                         referral_bonus(data.bonus);
 
 
-                        for(var j=0; j<data.numberPost; j++){
+                        for(var j=0; j<data.numberPost; j++) {
 
                         $('#notification').append($('<div class="alert alert-danger alert-dismissible" style="margin-top: 20px" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\
                         <span aria-hidden="true">&times;</span></button>\
                         <strong>' + data.content[j] +'</strong></div>'));                    
-
                         }    
+
+
+                        if( (data.plan).length > 0 ) {
+
+                            var now = new Date();
+
+                            for(var i=0; i<(data.plan).length; i++) {
+                                $('#to-match').append($('<div class="col-xs-12 col-sm-6 col-md-4">\
+                                                            <div class="panel panel-success timer-panel">\
+                                                                <div class="panel-heading"> <h3 class="panel-title">Package : ' + data.plan[i].amount + '</h3> </div>\
+                                                                <div class="panel-body text-center">\
+                                                                    <div id="to-timer' + i + '" class="well well-sm"></div>\
+                                                                </div>\
+                                                            </div>\
+                                                        </div>'));
+
+                                now.setSeconds(now.getSeconds() + parseInt(data.plan[i].time_left.s) );
+                                now.setMinutes(now.getMinutes() + parseInt(data.plan[i].time_left.m) );
+                                now.setHours(now.getHours() + parseInt(data.plan[i].time_left.h) );
+                                now.setDate(now.getDate() + parseInt(data.plan[i].time_left.d));
+                                
+                                console.log(now.toString());
+
+                                var month = now.getMonth() < 10 ?'0' + (now.getMonth()+1): (now.getMonth()+1);
+                                var date = now.getDate() < 10 ?'0' + now.getDate() : now.getDate();
+                                var hrs = now.getHours() < 10 ?'0' + now.getHours() : now.getHours();
+                                var mins = now.getMinutes() < 10 ?'0' + now.getMinutes() : now.getMinutes();
+                                var sec = now.getSeconds() < 10 ?'0' + now.getSeconds() : now.getSeconds();
+
+                                console.log(month + '/' + date + '/' + now.getFullYear() + ' ' + hrs + ':' + mins + ':' + sec);
+
+                                $('#to-timer' + i).flipcountdown({
+                                    size:'sm',
+                                    beforeDateTime: month + '/' + date + '/' + now.getFullYear() + ' ' + hrs + ':' + mins + ':' + sec
+                                });
+
+                            }
+
+                            $('.to-match').fadeIn();
+
+                        }
 
                         if( (data.don).length > 0 ) {
                             for(var i=0; i<(data.don).length; i++) {
@@ -92,14 +132,45 @@
                                                     <h4><span class="label label-warning">Pay Before</span></h4>\
                                                     <div id="timer' + i + '" style="margin-bottom: 10px;"></div>\
                                                     <div class="panel-footer" style="background-color: #FFFFFF">\
-                                                        <button class="btn btn-submit btn-block upload' + ( data.don[i].fileName ? ' disabled btn-warning' : '') + '"  role="button" data-amount="' + data.don[i].amount + '">'+buttonMessage+' <span class="glyphicon glyphicon-upload" aria-hidden="true"></span></button>\
-                                                    </div>\
+                                                        <button class="btn btn-submit btn-block upload' + ( data.don[i].fileName ? ' disabled btn-warning' : '') + '"  role="button" data-amount="' + data.don[i].amount + '">'+buttonMessage+' <span class="glyphicon glyphicon-upload" aria-hidden="true"></span></button>' +
+                                                        (!data.don[i].time_upload?'<button class="btn btn-cancel btn-block cancel btn-warning"  role="button" data-tid="' + data.don[i].tid + '">'+'cancel'+' <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></button>':'') +
+                                                    '</div>\
                                                 </div>\
                                             </div>\
                                         </div>'));
-                                var now = new Date();
+
+                                var now = new Date();                                
                                 console.log(now.toString());
-                                if( data.don[i].time_left ) {
+
+
+                                if( data.don[i].time_upload ) {
+                                    now.setSeconds( parseInt(data.don[i].time_upload.s) );
+                                    now.setMinutes( parseInt(data.don[i].time_upload.m) );
+                                    now.setHours( parseInt(data.don[i].time_upload.h) );
+                                    // now.setDate( parseInt(data.don[i].time_upload.d) );
+                                    
+                                    console.log(now.toString());
+                                    
+                                    // var month = now.getMonth() < 10 ?'0' + (now.getMonth()+1): (now.getMonth()+1);
+                                    var date = data.don[i].time_upload.d = '0' ?'00': now.getDate();
+                                    var hrs = now.getHours() < 10 ?'0' + now.getHours() : now.getHours();
+                                    var mins = now.getMinutes() < 10 ?'0' + now.getMinutes() : now.getMinutes();
+                                    var sec = now.getSeconds() < 10 ?'0' + now.getSeconds() : now.getSeconds();
+
+                                    console.log(date + ':' + hrs + ':' + mins + ':' + sec);
+                                    
+                                    var FreezeTime = date + ':' + hrs + ':' + mins + ':' + sec;
+                                    
+                                    $('#timer' + i).flipcountdown({
+                                        size:'sm',
+                                        autoUpdate: false,
+                                        tick: function(){            
+                                             return FreezeTime;
+                                        }
+                                    });
+
+                                }
+                                else if( data.don[i].time_left ) {
                                     now.setSeconds(now.getSeconds() + parseInt(data.don[i].time_left.s) );
                                     now.setMinutes(now.getMinutes() + parseInt(data.don[i].time_left.m) );
                                     now.setHours(now.getHours() + parseInt(data.don[i].time_left.h) );
@@ -118,6 +189,17 @@
                                         size:'sm',
                                         beforeDateTime: month + '/' + date + '/' + now.getFullYear() + ' ' + hrs + ':' + mins + ':' + sec
                                     });
+
+                                    
+                                    // var FreezeTime = '00'+ ':' + hrs + ':' + mins + ':' + sec;
+                                    // $('#timer' + i).flipcountdown({
+                                    //     size:'sm',
+                                    //     // beforeDateTime: month + '/' + date + '/' + now.getFullYear() + ' ' + hrs + ':' + mins + ':' + sec
+                                    //     tick: function(){
+                                            
+                                    //         return FreezeTime;
+                                    //     }
+                                    // });
                                 }
                             }
                             $('.receivers').fadeIn();
@@ -162,8 +244,10 @@
                                                     </table>\
                                                     <div id="timer' + i + '" style="margin-bottom: 10px;"></div>\
                                                     <div class="panel-footer" style="background-color: #FFFFFF">\
-                                                        <button data-tid="' + data.rec[i].tid + '" data-amount="' + data.rec[i].amount + '" class="cnfrm btn btn-submit btn-block'+ fileStatus + '" href="#" role="button">'+ buttonMessage +'</button>\
-                                                    </div>\
+                                                        <button data-tid="' + data.rec[i].tid + '" data-amount="' + data.rec[i].amount + '" class="cnfrm btn btn-submit btn-block'+ fileStatus + '" href="#" role="button">'+ buttonMessage +'</button>'
+                                                        +
+                                                        (data.rec[i].fileName?'<a href="back-end/uploads/'+ data.rec[i].fileValue+'" download class="btn btn-cancel btn-block download btn-warning"  role="button" data-file="' + data.rec[i].fileValue + '">'+'Download File'+' <span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>':'') +
+                                                    '</div>\
                                                 </div>\
                                             </div>\
                                         </div>'));
@@ -195,12 +279,23 @@
                                 .remove('#fileUpload form input[name="package"]')
                                 .append('<input type="hidden" value="' + $(this).attr('data-amount') + '" name="package">');
                                 $('#fileUpload').modal({show: true});
+
                             }
+                        });
+
+
+                        $('button.cancel').click(function(){
+                            console.log($(this).attr('data-tid'));
+                            var that=this;
+                            $('#cancelPay form')
+                                .remove('#cancelPay form input[name="tid"]')
+                                .append('<input type="hidden" value="' + $(that).attr('data-tid') + '" name="tid">');
+                            $('#cancelPay').modal({show: true});    
                         });
 
                         $('button.cnfrm').click(function(){
                             var _this = this;
-                            console.log();
+                            // console.log();
                             if(!$(this).hasClass('disabled')) {
                                 $.post(settings.BASE_URL + 'back-end/util.php?func_name=confirmPayment', {'tid':$(this).attr('data-tid'), 'amount':$(this).attr('data-amount')}, 
                                     function(data, status) {
@@ -213,6 +308,12 @@
                                 }, 'json');
                             }
                         });
+
+                        $('button.download').click(function(){
+                            console.log($(this).attr('data-file'));
+
+                        });
+
 
                     }
 
