@@ -16,7 +16,9 @@
 	        	move_uploaded_file($file_tmp, $target_file);
 	        	require './require/connection.inc.php';
 	        	if($connection){
-	        		$sql_fileUpdate = "UPDATE `transaction_details` SET `file_name` = '{$file_name}' WHERE `user_id_donor` = '{$_SESSION['u_id']}' AND `amount` = '{$_POST['package']}' AND `have_paid` ='0'";
+	        		$time_stamp = date('Y-m-d H:i:s');
+	        		
+	        		$sql_fileUpdate = "UPDATE `transaction_details` SET `file_name` = '{$file_name}',`upload_time`='{$time_stamp}' WHERE `user_id_donor` = '{$_SESSION['u_id']}' AND `amount` = '{$_POST['package']}' AND `have_paid` ='0'";
 	        		$result_fileUpdate = mysqli_query($connection, $sql_fileUpdate);
 
 	        	}
